@@ -1,20 +1,21 @@
 // Auto generated:
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 // Manual additions:
 const mongoose = require('mongoose'); // https://www.npmjs.com/package/mongoose
 const passport = require('passport'); // https://www.npmjs.com/package/passport
 const cors = require('cors'); // https://www.npmjs.com/package/cors
+const helmet = require('helmet'); // https://www.npmjs.com/package/helmet
 
 const swaggerUi = require('swagger-ui-express'); // https://www.npmjs.com/package/swagger-ui-express
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./openapi.yaml');
 
-var config = require('./config');
+const config = require('./config');
 
 // Connnect to MongoDB:
 mongoose.connect(config.mongoUrl, {
@@ -28,15 +29,18 @@ mongoose.connect(config.mongoUrl, {
   console.log(err);
 });
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var charitiesRouter = require('./routes/charities');
-var pickupRouter = require('./routes/pickups');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const charitiesRouter = require('./routes/charities');
+const pickupRouter = require('./routes/pickups');
 
-var app = express();
+const app = express();
 
 // Enable CORS for all origins:
 app.use(cors());
+
+// Enable hemet
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
