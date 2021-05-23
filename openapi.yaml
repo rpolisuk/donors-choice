@@ -7,6 +7,8 @@ info:
 servers:
   - url: 'http://localhost:3000/'
     description: Localhost running on your computer
+  - url: 'https://arcane-escarpment-54741.herokuapp.com/'
+    description: Heroku site
 
 paths:
 # /users/login POST configuration:
