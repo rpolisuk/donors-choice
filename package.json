@@ -7,6 +7,7 @@
     "dev": "nodemon -e js,mjs,json,yaml ./bin/www/app.js"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.4.4",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "^4.3.1",

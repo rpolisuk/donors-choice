@@ -25,6 +25,27 @@ mongoose.connect(config.mongoUrl, {
   useCreateIndex: true
 }).then(() => {
   console.log('Connected to MongoDB');
+
+  // ==== SendGrid Test Code
+  const sgMail = require('@sendgrid/mail');
+  sgMail.setApiKey(config.SENDGRID_API_KEY);
+  const msg = {
+    to: 'polisuk@gmail.com',
+    from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
+    subject: 'Sending with Twilio SendGrid is Fun',
+    text: 'and easy to do anywhere, even with Node.js',
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+  };
+  sgMail
+    .send(msg)
+    .then(() => {}, error => {
+      console.error(error);
+      if (error.response) {
+        console.error(error.response.body);
+      }
+    });
+  console.log('MAIL SENT');
+  // ====
 }, (err) => {
   console.log(err);
 });
