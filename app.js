@@ -27,6 +27,7 @@ mongoose.connect(config.mongoUrl, {
   console.log('Connected to MongoDB');
 
   // ==== SendGrid Test Code
+  /*
   const sgMail = require('@sendgrid/mail');
   sgMail.setApiKey(config.SENDGRID_API_KEY);
   const msg = {
@@ -38,13 +39,15 @@ mongoose.connect(config.mongoUrl, {
   };
   sgMail
     .send(msg)
-    .then(() => {}, error => {
+    .then((response) => {
+      console.log(response[0].statusCode);
+      console.log(response[0].headers);
+    })
+    .catch((error) => {
       console.error(error);
-      if (error.response) {
-        console.error(error.response.body);
-      }
     });
   console.log('MAIL SENT');
+  */
   // ====
 }, (err) => {
   console.log(err);
