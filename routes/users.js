@@ -1,20 +1,15 @@
-var express = require('express');
-var router = express.Router();
-var User = require('../models/user');
-var passport = require('passport');
-var authenticate = require('../authenticate');
-
-/* GET users listing. */
-router.route('/')
-  .get(authenticate.verifyOrdinaryUser, authenticate.verifyAdmin, (req, res, next) => {
-    User.find({})
-      .then((users) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(users);
-      }, (err) => next(err))
-      .catch((err) => next(err));
-  });
+const express = require('express');
+const { promisify } = require('util');
+const router = express.Router();
+const User = require('../models/user');
+const passport = require('passport');
+const validator = require('validator');
+const sgMail = require('@sendgrid/mail');
+const config = require('../config');
+const md5 = require('md5');
+const crypto = require('crypto');
+const async = require('async');
+const authenticate = require('../authenticate');
 
 /* Sample JSON POST /users/signup request:
 {
@@ -25,40 +20,101 @@ router.route('/')
 }
 */
 router.post('/signup', (req, res, next) => {
-  User.register(new User({
-    username: req.body.username
-  }),
-  req.body.password, (err, user) => {
-    if (err) {
-      res.statusCode = 422;
-      res.setHeader('Content-Type', 'application/json');
-      res.json({
-        err: err
-      });
-    } else {
-      if (req.body.firstname) { user.firstname = req.body.firstname; }
-      if (req.body.lastname) { user.lastname = req.body.lastname; }
-      user.save((err, user) => {
-        if (err) {
-          res.statusCode = 500;
-          res.setHeader('Content-Type', 'application/json');
-          res.json({
-            err: err
-          });
-          return;
-        }
-        passport.authenticate('local')(req, res, () => {
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'application/json');
-          res.json({
-            success: true,
-            status: 'Registration Successful!'
+  res.setHeader('Content-Type', 'application/json'); // All returns are in JSON format
+
+  // Validate email address
+  if (!validator.isEmail(req.body.username)) {
+    res.statusCode = 422;
+    res.json({
+      success: false,
+      status: 'Email is invalid'
+    });
+    return;
+  }
+
+  // Call Passport-local-mongoose register method to register a new user
+  User.register(
+    new User({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname }),
+    req.body.password,
+    (err, user) => {
+      if (err) {
+        res.statusCode = 422;
+        res.json({
+          success: false,
+          err: err
+        });
+      } else {
+        user.save((err, user) => {
+          if (err) {
+            res.statusCode = 500;
+            res.json({
+              success: false,
+              err: err
+            });
+            return;
+          }
+          passport.authenticate('local')(req, res, () => {
+            res.statusCode = 200;
+            res.json({
+              success: true,
+              status: 'Registration Successful!'
+            });
           });
         });
-      });
-    }
-  });
+      }
+    });
+
+  // Send confirmation email with verification link
+  sgMail.setApiKey(config.SENDGRID_API_KEY);
+  const md5UserID = md5(req.body.username);
+  const msg = {
+    to: `${req.body.username}`,
+    from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
+    subject: 'Welcome to Donors Choice',
+    html: `<p>Click the following link to verify: <a href="http://${req.headers.host}/users/verify?email=${req.body.username}&code=${md5UserID}"> http://${req.headers.host}/users/verify?email=${req.body.username}&code=${md5UserID} </a></p>`
+  };
+  sgMail
+    .send(msg)
+    .then((response) => {
+      console.log(response[0].statusCode);
+      console.log(response[0].headers);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  console.log('MAIL SENT');
 });
+
+// Verifies email address
+router.get('/verify',
+  async (req, res) => {
+    const errURL = 'https://www.yahoo.com/';
+    const successURL = 'https://bing.com/';
+
+    if (req.query.email === undefined || req.query.code === undefined) { // Missing info
+      console.log('MISSING STUFF');
+      res.redirect(301, errURL);
+      return;
+    }
+    if (md5(req.query.email) !== req.query.code) { // Code does not match
+      console.log('CODE DOES NOT MATCH');
+      res.redirect(301, errURL);
+      return;
+    }
+
+    await User.findOneAndUpdate({ username: `${req.query.email}` }, { verified: true }).then((data) => {
+      if (data === null) {
+        console.log('USER WAS UNABLE TO BE VERIFIED');
+        res.redirect(301, errURL);
+      } else {
+        console.log('USER HAS BEEN VERIFIED!');
+        res.redirect(301, successURL);
+      }
+    }).catch((error) => {
+      console.log('USER WAS UNABLE TO BE VERIFIED' + error);
+      res.redirect(301, errURL);
+    });
+  });
 
 /* Sample JSON POST /users/login request:
 {
@@ -67,17 +123,140 @@ router.post('/signup', (req, res, next) => {
 }
 Returns the JWT token
 */
-router.post('/login', passport.authenticate('local'), (req, res) => {
-  var token = authenticate.getToken({
-    _id: req.user._id
+
+// By default, if authentication fails, Passport will respond with a 401 Unauthorized status, and any additional route handlers will not be invoked.
+router.post('/login', passport.authenticate('local'),
+  (req, res) => {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    var token = authenticate.getToken({
+      _id: req.user._id
+    });
+
+    User.findById(req.user._id)
+      .then(foundUser => {
+        // console.log(foundUser);
+
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({
+          success: true,
+          token: token,
+          _id: req.user._id,
+          verified: foundUser.verified,
+          status: 'You are successfully logged in!'
+        });
+      });
   });
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json({
-    success: true,
-    token: token,
-    _id: req.user._id,
-    status: 'You are successfully logged in!'
+
+router.post('/forgot', function (req, res, next) {
+  async.waterfall([
+    function (done) {
+      crypto.randomBytes(20, function (err, buf) {
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function (token, done) {
+      User.findOne({ username: req.body.username }, function (_, user) {
+        if (!user) {
+          res.statusCode = 422;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({
+            success: false,
+            status: 'No account with that username exists.'
+          });
+        }
+
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+        user.save(function (err) {
+          done(err, token, user);
+        });
+      });
+    },
+    function (token, user, done) {
+      // Send email
+      sgMail.setApiKey(config.SENDGRID_API_KEY);
+      const msg = {
+        to: `${req.body.username}`,
+        from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
+        subject: 'Donors Choice Password Reset',
+        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+            'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+            'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+            'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+      };
+      sgMail
+        .send(msg)
+        .then((response) => {
+          console.log(response[0].statusCode);
+          console.log(response[0].headers);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      console.log('MAIL SENT');
+
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({
+        success: true,
+        status: 'Request to reset password was succesfully processed.'
+      });
+
+    }
+  ], function (err) {
+    if (err) return next(err);
+    res.redirect('/forgot');
+  });
+});
+
+router.post('/reset/:token', function (req, res) {
+  async.waterfall([
+    function (done) {
+      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (_, user) {
+        if (!user) {
+          req.flash('error', 'Password reset token is invalid or has expired.');
+          return res.redirect('back');
+        }
+
+        user.password = req.body.password;
+        user.resetPasswordToken = null;
+        user.resetPasswordExpires = null;
+
+        user.save(function (_) {
+          req.logIn(user, function (err) {
+            done(err, user);
+          });
+        });
+      });
+    },
+    function (user, done) {
+      /*
+      var smtpTransport = nodemailer.createTransport('SMTP', {
+        service: 'SendGrid',
+        auth: {
+          user: '!!! YOUR SENDGRID USERNAME !!!',
+          pass: '!!! YOUR SENDGRID PASSWORD !!!'
+        }
+      });
+      var mailOptions = {
+        to: user.email,
+        from: 'passwordreset@demo.com',
+        subject: 'Your password has been changed',
+        text: 'Hello,\n\n' +
+          'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+      };
+      smtpTransport.sendMail(mailOptions, function (err) {
+        req.flash('success', 'Success! Your password has been changed.');
+        done(err);
+      });
+      */
+    }
+  ], function (_) {
+    res.redirect('/');
   });
 });
 

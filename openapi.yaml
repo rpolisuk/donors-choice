@@ -10,11 +10,130 @@ servers:
   - url: 'https://arcane-escarpment-54741.herokuapp.com/'
     description: Heroku site
 
+tags:
+  - name: user
+    description: Operations about users
+  - name: charity
+    description: Operations about charities
+
 paths:
+
+# /users/signup POST configuration:
+# No parameters are configured for a POST
+  /users/signup:
+    post:
+      tags:
+        - "user"
+      summary: Sign up a new user to the system
+      description: Signup to the system
+      requestBody:
+        description: User information required to create an account
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                  example: Richard
+                  required: true
+                lastname:
+                  type: string
+                  example: Polisuk
+                  required: true
+                username:
+                  type: string
+                  example: email@example.com
+                  required: true
+                password:
+                  type: string
+                  example: password
+                  required: true
+      responses:
+        '200':
+          description: User is logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: Registration Successful!
+        '422':
+          description: Error: Unprocessable Entity
+
+# /users/signup POST configuration:
+# No parameters are configured for a POST
+  /users/verify:
+    get:
+      tags:
+        - "user"
+      summary: Verifies the user to the system
+      description: Verify the user to the system
+      parameters:
+        - name: email
+          in: query
+          type: string
+          example: polisuk@gmail.com
+          required: true
+        - name: code
+          in: query
+          type: string
+          example: 63d840b9b19b722fbb0ba1eca846db88
+          required: true
+      responses:
+        '301':
+          description: Error: Missing information, re-directed
+        '422':
+          description: Error: Unprocessable Entity
+
+# /users/signup POST configuration:
+# No parameters are configured for a POST
+  /users/forgot:
+    post:
+      tags:
+        - "user"
+      summary: Reset a forgotten password
+      description: Resets a forgotten password
+      requestBody:
+        description: User information required to reset the password
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: email@example.com
+                  required: true
+      responses:
+        '200':
+          description: Request to reset password was succesfully processed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: Request to reset password was succesfully processed.
+        '422':
+          description: Error: No account with that username exists.
+
+
 # /users/login POST configuration:
   /users/login:
     post:
-      summary: Log into the system
+      tags:
+        - "user"
+      summary: Logs user into the system
       description: Log in to the system with a valid userid
       requestBody:
         description: User that is allowed to log in
@@ -33,27 +152,11 @@ paths:
         '401':
           description: User is not authorized
 
-# /users GET configuration: 
-  /users:
-    get:
-      security:
-        - bearerAuth: []
-      summary: Get all users in system
-      description: Returns an array of all the users in the system
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UserGetReceive'
-        '401':
-          description: User is not authorized
-
+# /charities GET configuration: 
   /charities:
     get:
+      tags:
+        - "charity"
       summary: Get the charity information
       description: Return all the details charity information.
       parameters:
@@ -120,56 +223,13 @@ paths:
                     type: string
                     example: 1
 
-
-# /users/signup POST configuration:
-  /users/signup:
-    post:
-      summary: Signup to the system
-      description: Signup to the system
-      requestBody:
-        description: User information to create an account
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SignupSend'
-        required: false
-      responses:
-        '200':
-          description: User is logged in successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  status:
-                    type: string
-                    example: Registration Successful!
-        '422':
-          description: UserExistsError, unprocessable entity.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  err:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                        example: UserExistsError
-                      status:
-                        type: string
-                        example: A user with the given username is already registered
-
-
   '/users/{userId}/change-password/':
     put:
+      tags:
+        - "user"
       security:
         - bearerAuth: []
-      summary: Change the password for the userId
+      summary: Change the password for the user
       parameters:
         - name: userId
           in: path
@@ -234,6 +294,8 @@ components:
           type: string
         _id:
           type: string
+        verfiied:
+          type: boolean
         status:
           type: string
     # Schema for output of /users
@@ -253,28 +315,6 @@ components:
         __v:
           type: integer
           
-    # Schema for input of /users/signup
-    SignupSend:
-      required:
-        - firstname
-        - lastname
-        - username
-        - password
-      type: object
-      properties:
-        firstname:
-          type: string
-          example: Richard
-        lastname:
-          type: string
-          example: Polisuk
-        username:
-          type: string
-          example: email@example.com
-        password:
-          type: string
-          example: password
-
     User:
       required:
         - _id
