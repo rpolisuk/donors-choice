@@ -1,5 +1,4 @@
 const express = require('express');
-const { promisify } = require('util');
 const router = express.Router();
 const User = require('../models/user');
 const passport = require('passport');
@@ -205,7 +204,6 @@ router.post('/forgot', function (req, res, next) {
         success: true,
         status: 'Request to reset password was succesfully processed.'
       });
-
     }
   ], function (err) {
     if (err) return next(err);
