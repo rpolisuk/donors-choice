@@ -256,6 +256,7 @@ router.post('/reset/:token', function (req, res) {
   ], function (_) {
     res.redirect('/');
   });
+});
 
 /* Sample JSON PUT /users/:userid/change-password
 {
