@@ -48,8 +48,9 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/favicon2.png",
+              "src/assets",
+              "src/_redirects"
             ],
             "styles": [
               "src/styles.css"
