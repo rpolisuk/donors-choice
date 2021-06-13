@@ -148,6 +148,12 @@ router.post('/login', passport.authenticate('local'),
       });
   });
 
+/* Sample JSON POST /users/forgot request:
+{
+    "username": "polisuk@hotmail.com",
+}
+Sends an email to the link to reset password
+*/
 router.post('/forgot', function (req, res, next) {
   async.waterfall([
     function (done) {
@@ -211,24 +217,41 @@ router.post('/forgot', function (req, res, next) {
   });
 });
 
-router.post('/reset/:token', function (req, res) {
+/* Sample JSON POST /users/reset/:token request:
+{
+    "password": "password
+}
+Resets the password
+*/
+router.put('/reset/:token', function (req, res) {
   async.waterfall([
     function (done) {
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (_, user) {
-        if (!user) {
-          req.flash('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('back');
-        }
-
-        user.password = req.body.password;
-        user.resetPasswordToken = null;
-        user.resetPasswordExpires = null;
-
-        user.save(function (_) {
-          req.logIn(user, function (err) {
-            done(err, user);
+        console.log('USER=' + user);
+        if (user === null) {
+          res.statusCode = 422;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({
+            success: false,
+            status: 'Password reset token is invalid or has expired.'
           });
-        });
+        } else {
+          user.password = req.body.password;
+          user.resetPasswordToken = null;
+          user.resetPasswordExpires = null;
+
+          user.save(function (_) {
+            req.logIn(user, function (err) {
+              done(err, user);
+            });
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({
+              success: true,
+              status: 'Request to reset password was succesfully processed.'
+            });
+          });
+        }
       });
     },
     function (user, done) {

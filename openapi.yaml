@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.0
 info:
   title: Donor's Choice API
   description: Donor's Choice Project Application API
@@ -13,6 +13,8 @@ servers:
 tags:
   - name: user
     description: Operations about users
+  - name: password
+    description: Operations about password changing
   - name: charity
     description: Operations about charities
 
@@ -36,19 +38,15 @@ paths:
                 firstname:
                   type: string
                   example: Richard
-                  required: true
                 lastname:
                   type: string
                   example: Polisuk
-                  required: true
                 username:
                   type: string
                   example: email@example.com
-                  required: true
                 password:
                   type: string
                   example: password
-                  required: true
       responses:
         '200':
           description: User is logged in successfully
@@ -64,7 +62,7 @@ paths:
                     type: string
                     example: Registration Successful!
         '422':
-          description: Error: Unprocessable Entity
+          description: Error - Unprocessable Entity
 
 # /users/signup POST configuration:
 # No parameters are configured for a POST
@@ -77,58 +75,21 @@ paths:
       parameters:
         - name: email
           in: query
-          type: string
-          example: polisuk@gmail.com
-          required: true
+          schema:
+            type: string
+            example: polisuk@gmail.com
         - name: code
           in: query
-          type: string
-          example: 63d840b9b19b722fbb0ba1eca846db88
-          required: true
+          schema:
+            type: string
+            example: 63d840b9b19b722fbb0ba1eca846db88
       responses:
         '301':
-          description: Error: Missing information, re-directed
+          description: Error - Missing information, re-directed
         '422':
-          description: Error: Unprocessable Entity
+          description: Error - Unprocessable Entity
 
-# /users/signup POST configuration:
-# No parameters are configured for a POST
-  /users/forgot:
-    post:
-      tags:
-        - "user"
-      summary: Reset a forgotten password
-      description: Resets a forgotten password
-      requestBody:
-        description: User information required to reset the password
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                  example: email@example.com
-                  required: true
-      responses:
-        '200':
-          description: Request to reset password was succesfully processed.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  status:
-                    type: string
-                    example: Request to reset password was succesfully processed.
-        '422':
-          description: Error: No account with that username exists.
-
-
-# /users/login POST configuration:
+          # /users/login POST configuration:
   /users/login:
     post:
       tags:
@@ -151,6 +112,123 @@ paths:
                 $ref: '#/components/schemas/UserLoginReceive'
         '401':
           description: User is not authorized
+
+# /users/forgot POST configuration:
+# No parameters are configured for a POST
+  /users/forgot:
+    post:
+      tags:
+        - "password"
+      summary: Reset a forgotten password
+      description: Resets a forgotten password
+      requestBody:
+        description: User information required to reset the password
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: email@example.com
+      responses:
+        '200':
+          description: Request to reset password was succesfully processed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: Request to reset password was succesfully processed.
+        '422':
+          description: Error - No account with that username exists.
+
+# /users/forgot POST configuration:
+# No parameters are configured for a POST
+  /users/reset/{token}:
+    put:
+      tags:
+        - "password"
+      summary: Reset a forgotten password
+      description: Resets a forgotten password
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+          example: 7e14038bfa597141b7dcd8f51acd43f4c8e54730
+        required: true
+      requestBody:
+        description: User information required to reset the password
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: Request to reset password was succesfully processed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: Request to reset password was succesfully processed.
+        '422':
+          description: Error - No account with that username exists.
+
+# /{userId}/change-password PUT configuration: 
+  '/users/{userId}/change-password/':
+    put:
+      tags:
+        - "password"
+      security:
+        - bearerAuth: []
+      summary: Change the password for the user
+      parameters:
+        - name: userId
+          in: path
+          description: Object ID of the user that we need to change the password for.
+          required: true
+          schema:
+            type: string
+            example: 60993327ec96260d40d3bda5
+      requestBody:
+        description: User with new values of properties
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  example: password
+                new_password:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: User is deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: User is not authorized
+        '404':
+          description: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters OR password or username is incorrect
 
 # /charities GET configuration: 
   /charities:
@@ -222,48 +300,7 @@ paths:
                   currentPage: 
                     type: string
                     example: 1
-
-  '/users/{userId}/change-password/':
-    put:
-      tags:
-        - "user"
-      security:
-        - bearerAuth: []
-      summary: Change the password for the user
-      parameters:
-        - name: userId
-          in: path
-          description: Object ID of the user that we need to change the password for.
-          required: true
-          schema:
-            type: string
-            example: 60993327ec96260d40d3bda5
-      requestBody:
-        description: User with new values of properties
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                old_password:
-                  example: password
-                  required: true
-                new_password:
-                  type: string
-                  example: password
-                  required: true
-      responses:
-        '200':
-          description: User is deleted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '401':
-          description: User is not authorized
-        '404':
-          description: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters OR password or username is incorrect
-#                
+# 
 components:
   securitySchemes:
     bearerAuth:
