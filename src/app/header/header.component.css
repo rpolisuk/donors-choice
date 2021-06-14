@@ -1,0 +1,9 @@
+.btn2{
+    margin-left: 20px;
+    border: 1px solid black;
+    border-radius: 25px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    padding: 5px 20px;
+}
