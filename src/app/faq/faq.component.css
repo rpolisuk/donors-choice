@@ -1,0 +1,132 @@
+/* FOR HERO IMAGE */
+.bg-image {
+    /* The image used */
+    background-image: url("/assets/img/faq-banner.webp");
+    
+    /* Add the blur effect */
+    filter: blur(0px);
+    
+    /* Full height */
+    height: 100%; 
+    padding: 200px;
+    
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+
+/* FOR ACCORDION */
+  .accordion2 {
+    background-color: sienna;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 17px;
+    transition: 0.4s;
+  }
+
+  
+  button.accordion2:after {
+    content: '\02795';
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active, .accordion2:hover {
+    background-color: sandybrown; 
+    color: black;
+    content: "\02795";
+  }
+  
+  .panel {
+    padding: 0 18px;
+    display: block;
+    background-color: white;
+    transition: 0.6s ease-in-out;
+    overflow: hidden;
+    font-size: 15px;
+  }
+
+  .limits{
+    padding: 20px 100px;
+  }
+
+
+/* FOR ACCEPTABLE DONATION */
+  .column {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+
+  .row{
+      margin: 20px 100px;
+  }
+
+  .contact {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: green;
+    text-align: center;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .contact:hover {
+    background-color: limegreen !important;
+    color: black !important;
+  }
+
+  .contact a:link{
+    color: white;
+    text-decoration: none;
+  }
+
+  .contact a:hover{
+    color: black !important;
+    text-decoration: none;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+    border-radius: 5px;
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
