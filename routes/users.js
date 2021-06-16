@@ -217,6 +217,43 @@ router.post('/forgot', function (req, res, next) {
   });
 });
 
+/* GET token */
+/* Example: /users/get?username=polisuk@gmail.com */
+router.route('/get')
+  .get(async (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
+    try {
+      // execute query with page and limit values
+      console.log(req.query.username);
+      if (req.query.username !== undefined) {
+        const q = await User.findOne({ username: req.query.username }).exec();
+        if (q !== null) {
+          res.statusCode = 200;
+          res.json({
+            success: true,
+            resetPasswordToken: q.resetPasswordToken,
+            resetPasswordExpires: q.resetPasswordExpires
+          });
+        } else {
+          res.statusCode = 422;
+          res.json({
+            success: false,
+            resetPasswordToken: null,
+            resetPasswordExpires: null
+          });
+        }
+      } else {
+        res.statusCode = 422;
+        res.json({
+          success: false,
+          status: 'Invalid format.'
+        });
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  });
+
 /* Sample JSON POST /users/reset/:token request:
 {
     "password": "password

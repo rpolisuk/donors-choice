@@ -64,8 +64,7 @@ paths:
         '422':
           description: Error - Unprocessable Entity
 
-# /users/signup POST configuration:
-# No parameters are configured for a POST
+# /users/verify GET configuration:
   /users/verify:
     get:
       tags:
@@ -89,7 +88,7 @@ paths:
         '422':
           description: Error - Unprocessable Entity
 
-          # /users/login POST configuration:
+# /users/login POST configuration:
   /users/login:
     post:
       tags:
@@ -147,6 +146,39 @@ paths:
                     example: Request to reset password was succesfully processed.
         '422':
           description: Error - No account with that username exists.
+
+# /users/verify GET configuration:
+  /users/get:
+    get:
+      tags:
+        - "password"
+      summary: Gets the reset tokens for a user
+      description: Determines if a password reset has been requested
+      parameters:
+        - name: username
+          in: query
+          schema:
+            type: string
+            example: polisuk@gmail.com
+      responses:
+        '200':
+          description: User is logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  resetPasswordToken:
+                    type: string
+                    example: 3e1a05b035c13f0a7663d71127712463176deb50
+                  resetPasswordExpires:
+                    type: string
+                    example: 2021-06-16T17:37:27.944Z
+        '422':
+          description: Error - Unprocessable Entity
 
 # /users/forgot POST configuration:
 # No parameters are configured for a POST
