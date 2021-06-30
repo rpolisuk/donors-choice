@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Charity = require('../models/charity');
-var authenticate = require('../authenticate');
 
 /* GET charity listing. */
 router.route('/')

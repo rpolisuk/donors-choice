@@ -18,48 +18,53 @@ var authenticate = require('../authenticate');
     ],
     "donations": [
         {
-            "businessnumber": "12345",
-            "percent": "10"
+            "businessnumber": "821832037RR0001",
+            "percent": "50"
         },
         {
-            "businessnumber": "789098",
-            "percent": "90"
+            "businessnumber": "135518140RR0001",
+            "percent": "50"
         }
     ],
     "pickupdate": "2021-06-01",
     "pickuptime": "Morning"
 }
 */
-router.route('/')
-  .post((req, res, next) => {
+router.route('/schedule')
+  .post(authenticate.verifyOrdinaryUser, (req, res, next) => {
     Pickup.create(req.body)
       .then((pickup) => {
-        console.log('Promotion created ', pickup);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(pickup);
+        res.json({
+          success: true,
+          message: 'Successfully scheduled.'
+        });
       }, (err) => next(err))
       .catch((err) => next(err));
-  })
+  });
 
 /*
 {
     "status": "cancelled"
 }
 */
-router.route('/:pickupId')
-.put((req, res, next) => {
-  Pickup.findByIdAndUpdate(req.params.pickupId, {
+router.route('/update/:pickupId')
+  .put(authenticate.verifyOrdinaryUser, (req, res, next) => {
+    Pickup.findByIdAndUpdate(req.params.pickupId, {
       $set: req.body
     }, {
       new: true
     })
-    .then((pickup) => {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.json(pickup);
-    }, (err) => next(err))
-    .catch((err) => next(err));
-})
+      .then((pickup) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({
+          success: true,
+          message: 'Updated successfully.'
+        });
+      }, (err) => next(err))
+      .catch((err) => next(err));
+  });
 
 module.exports = router;

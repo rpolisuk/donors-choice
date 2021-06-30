@@ -17,6 +17,8 @@ tags:
     description: Operations about password changing
   - name: charity
     description: Operations about charities
+  - name: pickup
+    description: Operations about pickups
 
 paths:
 
@@ -246,6 +248,7 @@ paths:
               type: object
               properties:
                 old_password:
+                  type: string
                   example: password
                 new_password:
                   type: string
@@ -332,7 +335,135 @@ paths:
                   currentPage: 
                     type: string
                     example: 1
-# 
+#
+# /pickups/schedule POST configuration:
+# No parameters are configured for a POST
+  /pickups/schedule:
+    post:
+      tags:
+        - "pickup"
+      security:
+        - bearerAuth: []
+      summary: Schedule a pickup
+      description: Schedule a pickup
+      requestBody:
+        description: User information required to schedule a pickup
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: polisuk@gmail.com
+                contactname:
+                  type: string
+                  example: Sam Example
+                address:
+                  type: string
+                  example: 123 Example Road
+                city:
+                  type: string
+                  example: Toronto
+                province:
+                  type: string
+                  example: Ontario
+                postalcode:
+                  type: string
+                  example: H0H 0H0
+                phone:
+                  type: string
+                  example: 555-123-4567
+                items:
+                  type: array
+                  items:
+                    type: string
+                    example: MenClothes, WomenClothes
+                donations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      businessnumber:
+                        type: string
+                        example: 821832037RR0001
+                      percent:
+                        type: string
+                        example: 50
+                  example:
+                    - businessnumber: 821832037RR0001
+                      percent: 50
+                    - businessnumber: 135518140RR0001
+                      percent: 50
+                pickupdate:
+                  type: string
+                  example: 2021-12-01
+                pickuptime:
+                  type: string
+                  enum: [morning, afternooon, evening]
+                  example: morning
+      responses:
+        '200':
+          description: User is logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: Registration Successful!
+        '422':
+          description: Error - Unprocessable Entity
+#
+# /{userId}/change-password PUT configuration: 
+  '/pickups/update/{pickupId}/':
+    put:
+      tags:
+        - "pickup"
+      security:
+        - bearerAuth: []
+      summary: Updates the pickup record
+      parameters:
+        - name: pickupId
+          in: path
+          description: Object ID of the pickup that we need to update.
+          required: true
+          schema:
+            type: string
+            example: 60d1f274f8bef37d84298e23
+      requestBody:
+        description: User with new values of properties
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: cancelled
+      responses:
+        '200':
+          description: Record is updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: Updated successfully.
+        '401':
+          description: User is not authorized
+        '404':
+          description: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters OR password or username is incorrect
+#
 components:
   securitySchemes:
     bearerAuth:
