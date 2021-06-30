@@ -67,4 +67,26 @@ router.route('/update/:pickupId')
       .catch((err) => next(err));
   });
 
+/* GET donations */
+/* Example: /pickups/requests/ */
+router.route('/requests')
+  .get(async (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
+    try {
+      const results = await Pickup.find({ status: 'scheduled' }).exec();
+      if (results.length > 0) {
+        res.statusCode = 200;
+        res.json({ results });
+      } else {
+        res.statusCode = 422;
+        res.json({
+          success: false,
+          status: 'No pickups found.'
+        });
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  });
+
 module.exports = router;
