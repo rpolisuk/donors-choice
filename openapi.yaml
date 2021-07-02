@@ -19,6 +19,8 @@ tags:
     description: Operations about charities
   - name: pickup
     description: Operations about pickups
+  - name: donation
+    description: Operations about donations
 
 paths:
 
@@ -463,6 +465,83 @@ paths:
           description: User is not authorized
         '404':
           description: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters OR password or username is incorrect
+#
+# /pickups/requests GET configuration:
+  /pickups/requests:
+    get:
+      tags:
+        - "pickup"
+      summary: Gets all the scheduled pickups 
+      description:  Gets all the scheduled pickups 
+      responses:
+        '200':
+          description: Array of donations
+        '422':
+          description: No donations found. or Invalid format.
+#
+# /donations/create POST configuration:
+# No parameters are configured for a POST
+  /donations/create:
+    post:
+      tags:
+        - "donation"
+      summary: Create a donation
+      description: Information about a donation
+      requestBody:
+        description: User information required to create the donation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pickupid:
+                  type: string
+                  example: 60d1f274f8bef37d84298e23
+                donorid:
+                  type: string
+                  example: polisuk@gmail.com
+                adminid:
+                  type: string
+                  example: polisuk@gmail.com
+                businessnumber:
+                  type: string
+                  example: 821832037RR0001
+                amount:
+                  type: number
+                  example: 50
+      responses:
+        '200':
+          description: Request to reset password was succesfully processed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: Successfully added.
+#
+# /donations/history GET configuration:
+  /donations/history:
+    get:
+      tags:
+        - "donation"
+      summary: Gets all the donations made on behalf of the user
+      description: Gets all the donations made on behalf of the user
+      parameters:
+        - name: donorid
+          in: query
+          schema:
+            type: string
+            example: polisuk@gmail.com
+      responses:
+        '200':
+          description: Array of donations
+        '422':
+          description: No donations found. or Invalid format.
 #
 components:
   securitySchemes:

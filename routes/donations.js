@@ -20,7 +20,7 @@ router.route('/create')
         res.setHeader('Content-Type', 'application/json');
         res.json({
           success: true,
-          message: 'Successfully scheduled.'
+          message: 'Successfully added.'
         });
       }, (err) => next(err))
       .catch((err) => next(err));
