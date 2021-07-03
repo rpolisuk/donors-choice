@@ -471,8 +471,10 @@ paths:
     get:
       tags:
         - "pickup"
+      security:
+        - bearerAuth: []
       summary: Gets all the scheduled pickups 
-      description:  Gets all the scheduled pickups 
+      description:  Gets all the scheduled pickups. **This operation requires admin role.**
       responses:
         '200':
           description: Array of donations
@@ -485,8 +487,10 @@ paths:
     post:
       tags:
         - "donation"
+      security:
+        - bearerAuth: []
       summary: Create a donation
-      description: Information about a donation
+      description: Information about a donation. **This operation requires admin role.**
       requestBody:
         description: User information required to create the donation
         content:
@@ -530,7 +534,7 @@ paths:
       tags:
         - "donation"
       summary: Gets all the donations made on behalf of the user
-      description: Gets all the donations made on behalf of the user
+      description: Gets all the donations made on behalf of the user. **This operation requires admin role.**
       parameters:
         - name: donorid
           in: query

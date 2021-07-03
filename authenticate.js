@@ -53,4 +53,4 @@ exports.verifyAdmin = (req, res, next) => {
     err.status = 403;
     return next(err);
   }
-}
+};

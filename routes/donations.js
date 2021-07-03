@@ -13,7 +13,7 @@ var authenticate = require('../authenticate');
 }
 */
 router.route('/create')
-  .post((req, res, next) => {
+  .post(authenticate.verifyOrdinaryUser, authenticate.verifyAdmin, async (req, res, next) => {
     Donation.create(req.body)
       .then((donation) => {
         res.statusCode = 200;
