@@ -31,7 +31,7 @@ var authenticate = require('../authenticate');
 }
 */
 router.route('/schedule')
-  .post(authenticate.verifyOrdinaryUser, (req, res, next) => {
+  .post((req, res, next) => {
     Pickup.create(req.body)
       .then((pickup) => {
         res.statusCode = 200;
