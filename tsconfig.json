@@ -18,6 +18,8 @@
     "module": "es2020",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
     "lib": [
       "es2018",
       "dom"
@@ -26,6 +28,7 @@
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
+    "strictPropertyInitialization": false,
     "strictTemplates": true
   }
 }
