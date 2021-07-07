@@ -338,6 +338,64 @@ paths:
                     type: string
                     example: 1
 #
+# /charities/byBN GET configuration: 
+  /charities/byBN:
+    get:
+      tags:
+        - "charity"
+      summary: Get the charity information for a specific charity number
+      description: Return the details of the specific charity.
+      parameters:
+        - in: query
+          name: businessnumber
+          schema:
+            type: string
+            example: 107967168RR0001
+          required: true
+      responses:
+        '200':
+          description: Your request charity have been successfully returned.
+          content:
+            application/json:
+              schema:
+                properties:
+                  found: 
+                    type: boolean
+                    example: true
+                  charity: 
+                    type: object
+                    properties: 
+                      businessnumber: 
+                        type: string
+                        example: 107967168RR0001
+                      legalname: 
+                        type: string
+                        example: SENECA COLLEGE OF APPLIED ARTS & TECHNOLOGY
+                      addressline1: 
+                        type: string
+                        example: NAAZ MOHAMED DIRECTOR FINANCE
+                      addressline2: 
+                        type: string
+                        example: 1750 FINCH AVENUE EAST
+                      city: 
+                        type: string
+                        example: TORONTO
+                      province: 
+                        type: string
+                        example: ON
+                      postalcode: 
+                        type: string
+                        example: M2J2X5
+                      phone: 
+                        type: string
+                        example: (416) 491-5050
+                      _id: 
+                        type: string
+                        example: 6092d2ba9005b33f68ec5a67
+        '422':
+          description: Charity was not found or invalid format.
+#
+#
 # /pickups/schedule POST configuration:
 # No parameters are configured for a POST
   /pickups/schedule:

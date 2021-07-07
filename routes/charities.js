@@ -39,4 +39,38 @@ router.route('/')
     }
   });
 
+/* GET token */
+/* Example: /users/get?username=polisuk@gmail.com */
+router.route('/byBN')
+  .get(async (req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
+    try {
+      // execute query with page and limit values
+      console.log(req.query.businessnumber);
+      if (req.query.businessnumber !== undefined) {
+        const charity = await Charity.findOne({ businessnumber: req.query.businessnumber }).exec();
+        if (charity !== null) {
+          res.statusCode = 200;
+          res.json({
+            found: true,
+            charity
+          });
+        } else {
+          res.statusCode = 422;
+          res.json({
+            found: false
+          });
+        }
+      } else {
+        res.statusCode = 422;
+        res.json({
+          success: false,
+          status: 'Invalid format.'
+        });
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  });
+
 module.exports = router;
