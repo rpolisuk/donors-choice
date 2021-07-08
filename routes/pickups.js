@@ -50,7 +50,7 @@ router.route('/schedule')
 }
 */
 router.route('/update/:pickupId')
-  .put(authenticate.verifyOrdinaryUser, (req, res, next) => {
+  .put((req, res, next) => {
     Pickup.findByIdAndUpdate(req.params.pickupId, {
       $set: req.body
     }, {
