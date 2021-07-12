@@ -4,6 +4,8 @@ import { AboutComponent } from './about/about.component';
 import { DonateComponent } from './donate/donate.component';
 import { FaqComponent } from './faq/faq.component';
 import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -11,7 +13,8 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'faq', component: FaqComponent},
   {path: 'donate', component: DonateComponent},
-  // {path: '**', component: PageNotFoundComponent}
+  {path: 'donate/:businessnumber', component: ScheduleComponent},
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

@@ -11,6 +11,9 @@ import { FaqComponent } from './faq/faq.component';
 import { DonateComponent } from './donate/donate.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { PagingComponent } from './paging/paging.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     AboutComponent,
     FaqComponent,
-    DonateComponent
+    DonateComponent,
+    ScheduleComponent,
+    PagingComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

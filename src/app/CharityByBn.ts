@@ -1,5 +1,5 @@
-export class Charity{
-    _id: string;
+export interface CharityByBn {
+    businessnumber: string;
     legalname: string;
     addressline1: string;
     addressline2: string;
@@ -7,11 +7,10 @@ export class Charity{
     province: string;
     postalcode: string;
     phone: string;
-    businessnumber: string;
+    _id: string;
 }
 
-export class Root {
-  charities: Charity[]
-  totalPages: number
-  currentPage: string
+export interface RootObject {
+    found: boolean;
+    charity: CharityByBn;
 }
