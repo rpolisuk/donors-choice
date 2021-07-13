@@ -227,7 +227,7 @@ paths:
           description: Error - No account with that username exists.
 
 # /{userId}/change-password PUT configuration: 
-  '/users/{userId}/change-password/':
+  '/users/{username}/change-password/':
     put:
       tags:
         - "password"
@@ -235,13 +235,13 @@ paths:
         - bearerAuth: []
       summary: Change the password for the user
       parameters:
-        - name: userId
+        - name: username
           in: path
-          description: Object ID of the user that we need to change the password for.
+          description: Email of the user that we need to change the password for.
           required: true
           schema:
             type: string
-            example: 60993327ec96260d40d3bda5
+            example: polisuk@gmail.com
       requestBody:
         description: User with new values of properties
         content:

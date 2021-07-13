@@ -324,8 +324,8 @@ router.put('/reset/:token', function (req, res) {
     "new_password": "hellohello"
 }
 */
-router.put('/:userid/change-password', authenticate.verifyOrdinaryUser, (req, res, next) => {
-  User.findById(req.params.userid)
+router.put('/:username/change-password', authenticate.verifyOrdinaryUser, (req, res, next) => {
+  User.findOne({ username: req.params.username })
     .then(foundUser => {
       foundUser.changePassword(req.body.old_password, req.body.new_password)
         .then((resp) => {
