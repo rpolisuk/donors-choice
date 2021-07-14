@@ -1,7 +1,7 @@
 <header class="header" style="position: fixed; top: 0; width: 100%; z-index: 1000;">
     <!-- Main Navbar -->
-    <nav class="navbar navbar-expand-lg">
-      <div class="search-area">
+    <!-- <nav class="navbar navbar-expand-lg"> -->
+      <!-- <div class="search-area">
         <div class="search-area-inner d-flex align-items-center justify-content-center">
           <div class="close-btn"><i class="icon-close"></i></div>
           <div class="row d-flex justify-content-center"> 
@@ -15,19 +15,17 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="container">
-        <!-- Navbar Brand -->
+      </div> -->
+      <!-- <div class="container">
+        
         <div class="navbar-header d-flex align-items-center justify-content-between">
-          <!-- Navbar Brand --><a routerLink="/home" class="navbar-brand" routerLinkActive="active"><img src="/assets/img/web-logo.PNG" width="200px" height="50px"></a>
+          <a routerLink="/home" class="navbar-brand" routerLinkActive="active"><img src="/assets/img/web-logo.PNG" width="200px" height="50px"></a>
         </div>
-        <!-- Navbar Menu -->
+
           <ul class="navbar-nav mr-auto" style="margin-right: 0 !important;">
             <li class="nav-item"><a routerLink="/home" class="nav-link " routerLinkActive="active">Home</a>
             </li>
             <li class="nav-item"><a routerLink="/about" class="nav-link " routerLinkActive="active">About</a>
-            </li>
-			<li class="nav-item"><a routerLink="/blog" class="nav-link " routerLinkActive="active">Blog</a>
             </li>
 			<li class="nav-item"><a routerLink="/donate" class="nav-link " routerLinkActive="active">Donate</a>
             </li>
@@ -39,6 +37,42 @@
           <div class="navbar-text"><button class=" btn"><img src="/assets/img/user-icon.png" width="27px" height="25px" /></button>
           <button class="btn2"><a routerLink="/donate" style="text-decoration: none; color: white;">DONATE NOW</a></button>
           </div>
+      </div> -->
+    <!-- </nav> -->
+    <nav class="navbar navbar-expand-lg navbar-light py-3 bg-white shadow-sm">
+      <div class="container"><a class="navbar-brand" routerLink="/home"><img src="/assets/img/web-logo.PNG" alt="Donors Choice Logo" width="200px"></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav" style="margin-left: 120px;" id="myTopnav">
+            <li class="nav-item mx-2"><a class="nav-link text-uppercase" routerLink="/home" routerLinkActive="active">Home </a></li>
+            <li class="nav-item mx-2"><a class="nav-link text-uppercase" routerLink="/about" routerLinkActive="active">About</a></li>
+            <li class="nav-item mx-2"><a routerLink="/donate" class="nav-link text-uppercase" routerLinkActive="active">Donate</a></li>
+            <li class="nav-item mx-2"><a class="nav-link text-uppercase" routerLink="/contact" routerLinkActive="active">Contact</a></li>
+            <li class="nav-item mx-2"><a routerLink="/faq" class="nav-link text-uppercase" routerLinkActive="active">FAQ</a></li>
+            <!-- <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a> -->
+            <!-- <li class="nav-item ml-2 dropdown"><a class="nav-link text-uppercase dropdown-toggle pr-0" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
+              <div class="dropdown-menu mt-lg-4" aria-labelledby="navbarDropdownMenuLink"><a class="dropdown-item font-weight-bold text-small" routerLink="/home">Web Designing</a><a class="dropdown-item font-weight-bold text-small" routerLink="/about">SEO</a><a class="dropdown-item font-weight-bold text-small" routerLink="/contact">Social Media Marketing</a></div>
+            </li>-->
+            <!-- <li class="nav-item ml-lg-3 pl-lg-3"><a class="btn btn-outline-primary btn-sm" routerLink="/contact">Request a quote</a></li> -->
+          </ul>
+        </div>
+        <div class="navbar-text">
+          <button class=" btn"><img src="/assets/img/user-icon.png" width="27px" height="25px" /></button>
+          <button class="btn2"><a routerLink="/donate" style="text-decoration: none; color: white;">DONATE NOW</a></button>
+        </div>
       </div>
     </nav>
   </header>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+    </script>

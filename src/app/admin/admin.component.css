@@ -1,0 +1,49 @@
+  hr{
+    position: relative;
+    border-radius: 25px;
+    height: 3px;
+    background: black;
+    margin-bottom: 30px;
+    width: 14%;
+    margin-top: 7px;
+    margin-left: 30px;
+    float: left;
+  }
+
+  .charityDetailBox{
+    color: black; 
+    background-color: cyan;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 20px;
+    width: 90%;
+    font-size: small;
+    position: relative;
+    display: flow-root;
+  }
+
+  .row2{
+    padding: 0px 100px 50px 100px;
+  }
+
+  .column2 {
+    float: left;
+    width: 30%;
+    margin: 20px;
+  }
+
+  .help-block{
+    color: red;
+  }
+
+  .success{
+    color: red;
+  }
+
+  .btn{
+    float: left; 
+    padding: 10px; 
+    background: brown; 
+    color: white;
+  }

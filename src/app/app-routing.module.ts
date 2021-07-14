@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
+import { AdminComponent } from './admin/admin.component';
+import { ContactComponent } from './contact/contact.component';
 import { DonateComponent } from './donate/donate.component';
 import { FaqComponent } from './faq/faq.component';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +16,8 @@ const routes: Routes = [
   {path: 'faq', component: FaqComponent},
   {path: 'donate', component: DonateComponent},
   {path: 'donate/:businessnumber', component: ScheduleComponent},
+  {path: 'contact', component: ContactComponent},
+  {path: 'admin', component: AdminComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 

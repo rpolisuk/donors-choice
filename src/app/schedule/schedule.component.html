@@ -1,5 +1,5 @@
 <!-- Hero Section -->
-<section class="hero-image">
+<!-- <section class="hero-image">
     <div>
       <div class="hero-text">
       </div>
@@ -11,8 +11,8 @@
         </div>
       </div>
     </div>
-</section>
-
+</section> -->
+<br><br>
 <div class="row2">
     <h1 class="big-text">Schedule Pickup</h1>
 
@@ -138,7 +138,8 @@
             <p class="ptext">Pickup Date &amp; Time</p><hr>
             <div class="column2">
                 <!-- <label for="date">Date</label><br> -->
-                <input type="date" id="date" name="date" placeholder="Pickup Date*" style="border-radius: 5px;" [(ngModel)]="donation.pickupdate" required><br><br>
+                <input type="date" id="date" name="date" #date="ngModel" placeholder="Pickup Date*" style="border-radius: 5px;" [(ngModel)]="donation.pickupdate" required>
+                <p style="font-size: medium;"><i>Default: Today's Date</i></p>
             </div>
 
             <div class="column2" style="width: 63%;">
@@ -177,7 +178,7 @@
             </div>
 
             <p class="ptext">Confirmation</p><hr>
-            <label for="confirmationStmnt" style="font-size: large;">I ({{donation.contactname}}) want to donate used clothing to {{clickedChrt.legalname}} charity. The pickup date is {{donation.pickupdate}} and the time is in the {{donation.pickuptime}}.</label><br><br>
+            <label for="confirmationStmnt" style="font-size: large;">I ({{donation.contactname}}) want to donate used clothing to <b>{{clickedChrt.legalname}}</b> charity. The pickup date is <b>{{donation.pickupdate}}</b> and the time is in the <b>{{donation.pickuptime}}</b>.</label><br><br>
 
             <input style="margin-left: 16px;" type="checkbox" id="terms" name="terms" value="terms" #terms="ngModel" [(ngModel)]="option.terms" required>&nbsp;&nbsp;
             <label for="terms" style="margin-bottom: 0px; font-size: large;">I agree to the <a routerLink="/about" style="color: brown; text-decoration: underline;">Terms and conditions</a> of Donors Choice</label>

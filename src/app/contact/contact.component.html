@@ -1,0 +1,62 @@
+<br><br><br>
+<img src="/assets/img/contact-banner.jpg" width="100%" style="background-size: cover; background-position: center; background-repeat: no-repeat;">
+<p style="float: left; color: white; margin: -50px 0px 0px 110px; z-index: 1000; position: relative;"><a routerLink="/home" style="color: orange;">Home</a> &#60; Contact</p>
+
+  <section style="padding-top: 50px;" class="py-5 shadow-sm index-forward">
+    <div class="container py-5">
+      <header>
+        <h1>Contact Us</h1>
+        <p class="mb-5 text-muted">We will get back to you within 24 hours.</p>
+      </header>
+      <div class="row">
+        <div class="col-lg-7 mb-5 mb-lg-0">
+          <div class="pt-1 bg-primary">
+            <div class="p-4 p-lg-5 bg-white shadow-sm">
+              <form #f="ngForm" (ngSubmit)="formSubmit(f)"><!-- ngNativeValidate -->
+                <div class="row">
+                  <div class="form-group col-lg-6">
+                    <input class="form-control" type="text" id="firstname" name="firstname" #firstname="ngModel" placeholder="First name*" [(ngModel)]="flname.firstname" required autofocus>
+                    <span *ngIf="f.submitted && firstname.errors?.required" class="help-block">First Name is required</span>
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <input class="form-control" type="text" id="lastname" name="lastname" #lastname="ngModel" placeholder="Last name*" [(ngModel)]="flname.lastname" required>
+                    <span *ngIf="f.submitted && lastname.errors?.required" class="help-block">Last Name is required</span>
+                  </div>
+                  <div class="form-group col-lg-12">
+                    <input class="form-control" type="text" id="subject" name="subject" #subject="ngModel" placeholder="Subject*" [(ngModel)]="formData.subject" required>
+                    <span *ngIf="f.submitted && subject.errors?.required" class="help-block">Subject is required</span>
+                  </div>
+                  <div class="form-group col-lg-12">
+                    <input class="form-control" type="email" id="email" name="email" #email="ngModel" placeholder="Email address*" [(ngModel)]="formData.email" required>
+                    <span *ngIf="f.submitted && email.errors?.required" class="help-block">Email is required</span>
+                    <p id="eError" class="help-block"></p>
+                  </div>
+                  <div class="form-group col-lg-12">
+                    <textarea class="form-control" id="message" name="message" rows="5" #message="ngModel" placeholder="Leave your message*" [(ngModel)]="formData.message" [innerHTML]="formData.message" required></textarea>
+                    <span *ngIf="f.submitted && message.errors?.required" class="help-block">Message is required</span>
+                  </div>
+                  <div class="form-group col-lg-12">
+                    <button class="btn btn-outline-primary" style="background: green; color: white;" type="submit">Submit now</button>
+                  </div>
+                  <span *ngIf="success" class="success">Thank you for your response. We will contact you within 24 hours.</span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h3>Have a quesion?</h3>
+          <p class="text-muted mb-5">If you got any questions please do not hesitate to send us a message.</p>
+          <ul class="list-unstyled">
+            <li class="d-flex mb-3">
+              <div style="background-color: none;"><i class="fa fa-envelope"></i></div>
+              <div class="ml-3">
+                <h5 class="mb-0">Email</h5>
+                <p class="text-muted text-small">donors.choice@gmail.com</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>

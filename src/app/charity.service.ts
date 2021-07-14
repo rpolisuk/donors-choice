@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Admin, RootObj } from './Admin';
 import { Cancel, Status } from './CancelDonation';
 import { Charity, Root } from './Charity';
 import { CharityByBn, RootObject } from './CharityByBn';
+import { Contact } from './Contact';
 import { Option } from './Extra';
 import { PickupSchedule } from './PickupSchedule';
 // import 'rxjs/add/operator/map';
@@ -52,6 +54,16 @@ export class CharityService {
   // Cancel Donation By ID
   cancelDonationById(cancelId: string, data: Status): Observable<any>{
     return this.http.put<any>(`https://arcane-escarpment-54741.herokuapp.com/pickups/update/${cancelId}`, data);
+  }
+
+  // Contact Form request
+  contactRequest(data: Contact): Observable<any>{
+    return this.http.post<any>(`https://arcane-escarpment-54741.herokuapp.com/pickups/schedule`, data);
+  }
+
+  // Get All Donations of Donor
+  getAllDonationsByDonorId(donorId): Observable<RootObj>{
+    return this.http.get<RootObj>(`https://arcane-escarpment-54741.herokuapp.com/donations/history?donorid=${donorId}`);
   }
 
 }

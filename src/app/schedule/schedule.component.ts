@@ -106,6 +106,9 @@ export class ScheduleComponent implements OnInit {
 
     else if(eError && !eRegex.test(this.donation.username)){
           eError.innerHTML = "Only Gmail address is allowed"
+          
+          if(pError)
+            pError.innerHTML = "";
           // f.invalid;
           console.log("I m e in");
         }
@@ -116,12 +119,18 @@ export class ScheduleComponent implements OnInit {
           sCity.innerHTML = "City is required";
           console.log("City");
         }
+
+        if(eError)
+          eError.innerHTML = "";
     }
     else if(this.donation.province == "Province"){
         if(sProvince){
           sProvince.innerHTML = "Province is required";
           console.log("Province");
         }
+
+        if(sCity)
+          sCity.innerHTML = "";
     }
     else if(this.option.men == false && this.option.women == false && this.option.children == false){
 
@@ -130,6 +139,9 @@ export class ScheduleComponent implements OnInit {
         items2.innerHTML = "Please select any clothings to donate";
         items3.innerHTML = "Please select any clothings to donate";
       }
+
+      if(sProvince)
+        sProvince.innerHTML = "";
     
     }
     // else if(this.option.terms == false){

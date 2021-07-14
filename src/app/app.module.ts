@@ -14,6 +14,12 @@ import { FormsModule } from '@angular/forms';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { PagingComponent } from './paging/paging.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ContactComponent } from './contact/contact.component';
+import { AdminComponent } from './admin/admin.component';
+// import { LoginComponent } from './login/login.component';
+// import { RegisterComponent } from './register/register.component';
+// import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+// import { AngularMaterialModule } from './angular-material.module';
 
 @NgModule({
   declarations: [
@@ -26,13 +32,19 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     DonateComponent,
     ScheduleComponent,
     PagingComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ContactComponent,
+    AdminComponent,
+    // LoginComponent,
+    // RegisterComponent,
+    // ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    // AngularMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
