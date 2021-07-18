@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const sgMail = require('@sendgrid/mail');
+const config = require('../config');
 var Pickup = require('../models/pickup');
+const User = require('../models/user');
 var authenticate = require('../authenticate');
 
 /*
@@ -36,9 +39,39 @@ router.route('/schedule')
       .then((pickup) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
+        //
+        // Send email
+        sgMail.setApiKey(config.SENDGRID_API_KEY);
+        const msg = {
+          to: `${pickup.username}`,
+          from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
+          subject: 'Pickup Confirmation',
+          html: `<p>Your pickup is scheduled for ${pickup.pickupdate} for ${pickup.pickuptime}.<br>
+                Here is your confirmation information:<br>
+                Confirmation #: ${pickup._id}<br>
+                Contact Name: ${pickup.contactname}<br>
+                Address: ${pickup.address}<br>
+                City: ${pickup.city}<br>
+                Province: ${pickup.province}<br>
+                Postal Code: ${pickup.postalcode}<br>
+                Phone: ${pickup.phone}<br>
+                Items: ${pickup.items}<br>
+                Charity: ${pickup.donations[0].businessnumber}`
+        };
+        sgMail
+          .send(msg)
+          .then((response) => {
+            console.log(response[0].statusCode);
+            console.log(response[0].headers);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        //
         res.json({
           success: true,
-          message: 'Successfully scheduled.'
+          message: 'Successfully scheduled.',
+          pickup
         });
       }, (err) => next(err))
       .catch((err) => next(err));
@@ -56,9 +89,31 @@ router.route('/update/:pickupId')
     }, {
       new: true
     })
-      .then((pickup) => {
+      .then(async (pickup) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
+        if (req.body.status === 'cancelled') {
+          const user = await User.findOne({ businessnumber: req.query.businessnumber }).exec();
+          //
+          // Send email
+          sgMail.setApiKey(config.SENDGRID_API_KEY);
+          const msg = {
+            to: `${user.username}`,
+            from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
+            subject: 'Pickup cancellation',
+            html: `<p>Your pickup ${req.params.pickupId} has been cancelled.</p>`
+          };
+          sgMail
+            .send(msg)
+            .then((response) => {
+              console.log(response[0].statusCode);
+              console.log(response[0].headers);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        //
+        }
         res.json({
           success: true,
           message: 'Updated successfully.'

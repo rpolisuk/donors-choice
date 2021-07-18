@@ -21,6 +21,8 @@ tags:
     description: Operations about pickups
   - name: donation
     description: Operations about donations
+  - name: contact
+    description: Operations about contacts
 
 paths:
 
@@ -604,6 +606,53 @@ paths:
           description: Array of donations
         '422':
           description: No donations found. or Invalid format.
+#
+# /contacts/create POST configuration:
+# No parameters are configured for a POST
+  /contacts/create:
+    post:
+      tags:
+        - "contact"
+      summary: Create a new contact entry
+      description: Allows the user to create a contact
+      requestBody:
+        description: User information required to create an contact
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fname:
+                  type: string
+                  example: Richard
+                lname:
+                  type: string
+                  example: Polisuk
+                subject:
+                  type: string
+                  example: Test subject
+                email:
+                  type: string
+                  example: sample@example.com
+                message:
+                  type: string
+                  example: This is a test message. This is a second sentence.
+      responses:
+        '200':
+          description: Contact request is logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    example: Successfully added.
+        '422':
+          description: Error - Unprocessable Entity
 #
 components:
   securitySchemes:
