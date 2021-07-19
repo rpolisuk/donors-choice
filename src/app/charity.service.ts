@@ -7,7 +7,9 @@ import { Charity, Root } from './Charity';
 import { CharityByBn, RootObject } from './CharityByBn';
 import { Contact } from './Contact';
 import { Option } from './Extra';
+import { Login } from './Login';
 import { PickupSchedule } from './PickupSchedule';
+import { Register } from './Register';
 // import 'rxjs/add/operator/map';
 
 
@@ -58,12 +60,20 @@ export class CharityService {
 
   // Contact Form request
   contactRequest(data: Contact): Observable<any>{
-    return this.http.post<any>(`https://arcane-escarpment-54741.herokuapp.com/pickups/schedule`, data);
+    return this.http.post<any>(`https://arcane-escarpment-54741.herokuapp.com/contacts/create`, data);
   }
 
   // Get All Donations of Donor
   getAllDonationsByDonorId(donorId): Observable<RootObj>{
     return this.http.get<RootObj>(`https://arcane-escarpment-54741.herokuapp.com/donations/history?donorid=${donorId}`);
+  }
+
+  registerUser(data: Register): Observable<any>{
+    return this.http.post<any>(`https://arcane-escarpment-54741.herokuapp.com/users/signup`, data);
+  }
+
+  loginUser(data: Login): Observable<any>{
+    return this.http.post<any>(`https://arcane-escarpment-54741.herokuapp.com/users/login`, data);
   }
 
 }

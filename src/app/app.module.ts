@@ -16,6 +16,8 @@ import { PagingComponent } from './paging/paging.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ContactComponent } from './contact/contact.component';
 import { AdminComponent } from './admin/admin.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 // import { LoginComponent } from './login/login.component';
 // import { RegisterComponent } from './register/register.component';
 // import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -35,6 +37,8 @@ import { AdminComponent } from './admin/admin.component';
     PageNotFoundComponent,
     ContactComponent,
     AdminComponent,
+    LoginComponent,
+    RegisterComponent,
     // LoginComponent,
     // RegisterComponent,
     // ForgotPasswordComponent

@@ -15,12 +15,12 @@
               <form #f="ngForm" (ngSubmit)="formSubmit(f)"><!-- ngNativeValidate -->
                 <div class="row">
                   <div class="form-group col-lg-6">
-                    <input class="form-control" type="text" id="firstname" name="firstname" #firstname="ngModel" placeholder="First name*" [(ngModel)]="flname.firstname" required autofocus>
-                    <span *ngIf="f.submitted && firstname.errors?.required" class="help-block">First Name is required</span>
+                    <input class="form-control" type="text" id="fname" name="fname" #fname="ngModel" placeholder="First name*" [(ngModel)]="formData.fname" required autofocus>
+                    <span *ngIf="f.submitted && fname.errors?.required" class="help-block">First Name is required</span>
                   </div>
                   <div class="form-group col-lg-6">
-                    <input class="form-control" type="text" id="lastname" name="lastname" #lastname="ngModel" placeholder="Last name*" [(ngModel)]="flname.lastname" required>
-                    <span *ngIf="f.submitted && lastname.errors?.required" class="help-block">Last Name is required</span>
+                    <input class="form-control" type="text" id="lname" name="lname" #lname="ngModel" placeholder="Last name*" [(ngModel)]="formData.lname" required>
+                    <span *ngIf="f.submitted && lname.errors?.required" class="help-block">Last Name is required</span>
                   </div>
                   <div class="form-group col-lg-12">
                     <input class="form-control" type="text" id="subject" name="subject" #subject="ngModel" placeholder="Subject*" [(ngModel)]="formData.subject" required>

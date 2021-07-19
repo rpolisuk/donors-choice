@@ -1,11 +1,7 @@
 export class Contact {
-    username: string;
+    fname: string;
+    lname: string;
     subject: string;
     email: string;
     message: string;
-}
-
-export class FLName{
-    firstname: string;
-    lastname: string;
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CharityService } from '../charity.service';
-import { Contact, FLName } from '../Contact';
+import { Contact } from '../Contact';
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +12,7 @@ import { Contact, FLName } from '../Contact';
 export class ContactComponent implements OnInit {
 
   public formData: Contact = new Contact();
-  public flname: FLName = new FLName();
+  // public flname: FLName = new FLName();
   public success: boolean = false;
 
   constructor(private data: CharityService, private router: Router) { }
@@ -20,15 +20,11 @@ export class ContactComponent implements OnInit {
   ngOnInit(): void {
 
     this.formData = {
-      username: "",
+      fname: "",
+      lname: "",
       subject: "",
       email: "",
       message: ""
-    }
-
-    this.flname = {
-      firstname: "",
-      lastname: ""
     }
 
   }
@@ -49,7 +45,7 @@ export class ContactComponent implements OnInit {
       console.log("I m e in");
     }
     else{
-      this.formData.username = this.flname.firstname + " " + this.flname.lastname;
+      // this.formData.username = this.flname.firstname + " " + this.flname.lastname;
 
       this.data.contactRequest(this.formData).subscribe(() => setTimeout(() => {
         this.router.navigate(['/donate']);
