@@ -125,7 +125,7 @@ router.route('/update/:pickupId')
 /* GET donations */
 /* Example: /pickups/requests/ */
 router.route('/requests')
-  .get(authenticate.verifyOrdinaryUser, authenticate.verifyAdmin, async (req, res, next) => {
+  .get(async (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     try {
       const results = await Pickup.find({ status: 'scheduled' }).exec();
