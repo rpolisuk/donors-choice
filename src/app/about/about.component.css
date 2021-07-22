@@ -251,3 +251,159 @@
     padding: 0px;
     margin-top: 5px;
   }
+
+  #t1{
+    margin: 0px 100px;
+  }
+
+  @media only screen and (max-width: 650px) {
+    #t1{
+      margin: 0px 20px;
+    }
+
+    #clients{
+      display: grid;
+      text-align: center;
+    }
+
+    .column3{
+      width: 100%;
+    }
+
+    .column2{
+      width: 100%;
+    }
+
+    .column4{
+      width: 100%;
+    }
+
+    #developers{
+      margin: 40px 20px 0px 20px;
+    }
+
+    .limits{
+      text-align: center;
+      padding: 0px;
+    }
+
+    .row{
+      margin: 10px 20px;
+    }
+
+    .row2{
+      margin: 10px 20px;
+    }
+
+    #goal{
+      margin-top: 40px;
+    }
+  }
+  
+  @media only screen and (max-width: 800px) and (min-width: 649px) {
+    #t1{
+      margin: 0px 20px;
+    }
+
+    #clients{
+      display: inline;
+      text-align: center !important;
+      margin: 50px 50px 0px 50px;
+    }
+
+    .column{
+      width: 50%;
+    }
+
+    .column2{
+      width: 50%;
+    }
+
+    .column3{
+      width: 33.3%;
+      text-align: center !important;
+    }
+
+    .column4{
+      width: 100%;
+    }
+
+    #developers{
+      margin: 40px 20px 0px 20px;
+    }
+
+    #goal{
+      margin-top: 40px;
+    }
+
+    .limits{
+      text-align: center;
+      padding: 0px;
+    }
+
+    .row{
+      margin: 10px 20px;
+    }
+
+    .row2{
+      margin: 10px 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 1019px) and (min-width: 799px) {
+    #t1{
+      margin: 0px 20px;
+    }
+
+    #clients{
+      display: inline;
+      text-align: center !important;
+      margin: 50px 50px 0px 50px;
+    }
+
+    .column{
+      width: 33.3%;
+    }
+
+    .column2{
+      width: 50%;
+    }
+
+    .column3{
+      width: 25%;
+      text-align: center !important;
+    }
+
+    .column4{
+      width: 33.3%;
+    }
+
+    #developers{
+      margin: 40px 20px 0px 20px;
+    }
+
+    #goal{
+      margin-top: 40px;
+    }
+
+    .limits{
+      text-align: center;
+      padding: 0px;
+    }
+
+    .row{
+      margin: 10px 20px;
+    }
+
+    .row2{
+      margin: 10px 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 1200px) and (min-width: 1020px) {
+  
+  }
+  
+  @media only screen and (max-width: 1400px) and (min-width: 1201px) {
+  
+  }

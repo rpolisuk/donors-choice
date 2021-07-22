@@ -32,3 +32,35 @@
     background-color: #555;
     color: white;
   }
+
+  @media only screen and (max-width: 650px) {
+    #t1{
+      display: none;
+    }
+    
+    #t2{
+      margin-top: 20px;
+    }
+  }
+
+  @media only screen and (max-width: 800px) and (min-width: 649px) {
+    #t1{
+      display: none;
+    }
+
+    #t2{
+      margin-top: 20px;
+    }
+  }
+
+  @media only screen and (max-width: 1019px) and (min-width: 799px) {
+
+  }
+
+  @media only screen and (max-width: 1200px) and (min-width: 1020px) {
+
+  }
+
+  @media only screen and (max-width: 1400px) and (min-width: 1201px) {
+
+  }

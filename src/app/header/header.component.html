@@ -40,39 +40,58 @@
       </div> -->
     <!-- </nav> -->
     <nav class="navbar navbar-expand-lg navbar-light py-3 bg-white shadow-sm">
-      <div class="container"><a class="navbar-brand" routerLink="/home"><img src="/assets/img/web-logo.PNG" alt="Donors Choice Logo" width="200px"></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav" style="margin-left: 120px;" id="myTopnav">
-            <li class="nav-item mx-2"><a class="nav-link text-uppercase" routerLink="/home" routerLinkActive="active">Home </a></li>
-            <li class="nav-item mx-2"><a class="nav-link text-uppercase" routerLink="/about" routerLinkActive="active">About</a></li>
-            <li class="nav-item mx-2"><a routerLink="/donate" class="nav-link text-uppercase" routerLinkActive="active">Donate</a></li>
-            <li class="nav-item mx-2"><a class="nav-link text-uppercase" routerLink="/contact" routerLinkActive="active">Contact</a></li>
-            <li class="nav-item mx-2"><a routerLink="/faq" class="nav-link text-uppercase" routerLinkActive="active">FAQ</a></li>
-            <!-- <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-              <i class="fa fa-bars"></i>
-            </a> -->
+      <div class="container topnav"><a class="navbar-brand" routerLink="/home"><img src="/assets/img/web-logo.PNG" alt="Donors Choice Logo" width="200px"></a>
+        <a href="javascript:void(0);" id="bars" style="margin-right: 15px; color: black; padding: 5px 10px;" class="icon" (click)="myFunction()">
+          <i class="fa fa-bars fa-lg"></i>
+        </a>
+        <div class="collapse navbar-collapse" id="myLinks">
+          <ul class="navbar-nav" id="myTopnav">
+            <li class="nav-item mx-2"><a class="nav-link text-uppercase" (click)="myFunction()" routerLink="/home" routerLinkActive="active">Home </a></li>
+            <li class="nav-item mx-2"><a class="nav-link text-uppercase" (click)="myFunction()" routerLink="/about" routerLinkActive="active">About</a></li>
+            <li class="nav-item mx-2"><a routerLink="/donate" (click)="myFunction()" class="nav-link text-uppercase" routerLinkActive="active">Donate</a></li>
+            <li class="nav-item mx-2"><a class="nav-link text-uppercase" (click)="myFunction()" routerLink="/contact" routerLinkActive="active">Contact</a></li>
+            <li class="nav-item mx-2"><a routerLink="/faq" (click)="myFunction()" class="nav-link text-uppercase" routerLinkActive="active">FAQ</a></li>
+            
             <!-- <li class="nav-item ml-2 dropdown"><a class="nav-link text-uppercase dropdown-toggle pr-0" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
               <div class="dropdown-menu mt-lg-4" aria-labelledby="navbarDropdownMenuLink"><a class="dropdown-item font-weight-bold text-small" routerLink="/home">Web Designing</a><a class="dropdown-item font-weight-bold text-small" routerLink="/about">SEO</a><a class="dropdown-item font-weight-bold text-small" routerLink="/contact">Social Media Marketing</a></div>
             </li>-->
             <!-- <li class="nav-item ml-lg-3 pl-lg-3"><a class="btn btn-outline-primary btn-sm" routerLink="/contact">Request a quote</a></li> -->
           </ul>
         </div>
-        <div class="navbar-text">
-          <button class=" btn"><img src="/assets/img/user-icon.png" width="27px" height="25px" /></button>
+        
+
+        <div class="navbar-text" id="extra">
+          <div class="dropdown">
+            <button class=" btn"><img src="/assets/img/user-icon.png" width="27px" height="25px" /></button>
+            <div class="dropdown-content">
+              <a routerLink="/login">LOGIN</a>
+              <a routerLink="/register">REGISTER</a>
+            </div>
+          </div>
+          <!-- <div class="dropdown" *ngIf="userActive">
+            <button class=" btn"><img src="/assets/img/user-icon.webp" width="27px" height="25px" /> User</button>
+            <div class="dropdown-content">
+              <a href="/login">LOGOUT</a>
+            </div>
+          </div> -->
           <button class="btn2"><a routerLink="/donate" style="text-decoration: none; color: white;">DONATE NOW</a></button>
+
+          <!-- <div id="bars2">
+            <a href="javascript:void(0);" style="margin-right: 15px; color: black; padding: 5px 10px;" class="icon" (click)="myFunction()">
+              <i class="fa fa-bars fa-lg"></i>
+            </a>
+          </div> -->
+          <!-- <a href="javascript:void(0);" id="bars2" style="margin-right: 15px; color: black; padding: 5px 10px;" class="icon" (click)="myFunction()">
+            <i class="fa fa-bars fa-lg"></i>
+          </a> -->
         </div>
       </div>
+      <!-- <a href="javascript:void(0);" id="bars2" style="margin-right: 15px; color: black; padding: 5px 10px;" class="icon" (click)="myFunction()">
+        <i class="fa fa-bars fa-lg"></i>
+      </a> -->
     </nav>
   </header>
 
   <script>
-    function myFunction() {
-      var x = document.getElementById("myTopnav");
-      if (x.className === "topnav") {
-        x.className += " responsive";
-      } else {
-        x.className = "topnav";
-      }
-    }
+    
     </script>

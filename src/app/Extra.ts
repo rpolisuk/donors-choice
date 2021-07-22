@@ -5,3 +5,6 @@ export class Option{
     terms: boolean;
 }
 
+export class UserInfo{
+    isActive: boolean;
+}

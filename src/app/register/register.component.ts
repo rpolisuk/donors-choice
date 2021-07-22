@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CharityService } from '../charity.service';
+import { UserInfo } from '../Extra';
 import { Register, RegisterExtra } from '../Register';
 
 @Component({
@@ -90,12 +91,15 @@ export class RegisterComponent implements OnInit {
                 alert("Sign-up Successful!");
 
                 this.router.navigate(['/donate']);
+                this.data.setUserStatus(true);
               }
               }
     },HttpErrorResponse=>{    
         if(HttpErrorResponse.status == 200){
           if(x==0){x =1 
-        alert("Sign-up Successful!");}
+        alert("Sign-up Successful!");
+        this.data.setUserStatus(true);
+      }
       }
       if(HttpErrorResponse.status == 422){
         if(x==0){x =1 

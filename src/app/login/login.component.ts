@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CharityService } from '../charity.service';
 import { Contact } from '../Contact';
+import { UserInfo } from '../Extra';
+import { HeaderComponent } from '../header/header.component';
 import { Login } from '../Login';
 
 @Component({
@@ -88,6 +90,10 @@ export class LoginComponent implements OnInit {
                 x = 1;
               // alert("Log-in successful!");
               this.router.navigate(['/donate']);
+              // window.location.assign('/donate');
+              this.data.setUserStatus(true);
+              // this.head.userActive = true;
+              console.log(this.data.getUserStatus());
             }
           }
         }, HttpErrorResponse => {

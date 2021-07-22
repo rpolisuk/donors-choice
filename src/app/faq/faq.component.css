@@ -16,6 +16,9 @@
     background-size: cover;
   }
 
+  #t1{
+    margin-top: 100px;
+  }
 
 /* FOR ACCORDION */
   .accordion2 {
@@ -128,5 +131,163 @@
     .column {
       width: 100%;
       display: block;
+    }
+  }
+
+  @media only screen and (max-width: 650px) {
+    #bn, #bn2{
+      display: none;
+    }
+
+    #temp1{
+      text-align: left;
+      padding: 20px 15px 0px 15px;
+    }
+
+    #temp2{
+      text-align: left;
+      padding: 0px 15px 0px 15px;
+    }
+
+    #temp3{
+      text-align: left;
+      padding: 20px 15px 0px 15px;
+    }
+
+    .row{
+      margin: 10px 0px;
+    }
+
+    .text-big{
+      text-align: center;
+    }
+
+    #t1{
+      margin-top: 120px;
+    }
+  }
+  
+  @media only screen and (max-width: 800px) and (min-width: 649px) {
+    #bn{
+      display: block;
+      width: 100%;
+      background-size: contain; 
+      background-position: center; 
+      background-repeat: no-repeat;
+    }
+
+    #bn2{
+      display: none;
+    }
+
+    #t1{
+      margin-top: 0px;
+    }
+
+    #temp1{
+      text-align: left;
+      padding: 20px 15px 0px 15px;
+    }
+
+    #temp2, .limits{
+      text-align: left;
+      padding: 0px 15px 0px 15px;
+    }
+
+    #temp3{
+      text-align: left;
+      padding: 20px 15px 0px 15px;
+    }
+
+    .row{
+      margin: 10px 0px;
+    }
+
+    .column{
+      width: 50%;
+    }
+  }
+  
+  @media only screen and (max-width: 1019px) and (min-width: 799px) {
+    #bn{
+      display: block;
+      width: 100%;
+      background-size: contain; 
+      background-position: center; 
+      background-repeat: no-repeat;
+    }
+
+    #bn2{
+      display: none;
+    }
+
+    #t1{
+      margin-top: 50px;
+    }
+
+    #temp1{
+      text-align: left;
+      padding: 20px 70px 0px 70px;
+    }
+
+    #temp2 .limits{
+      text-align: left;
+      padding: 0px 20px 0px 20px;
+    }
+
+    #temp3{
+      text-align: left;
+      padding: 20px 15px 0px 15px;
+    }
+
+    .row{
+      margin: 10px 20px;
+    }
+
+    .column{
+      width: 33.3%;
+    }
+  }
+  
+  @media only screen and (max-width: 1200px) and (min-width: 1020px) {
+    #bn{
+      display: block;
+      width: 100%;
+      background-size: contain; 
+      background-position: center; 
+      background-repeat: no-repeat;
+    }
+
+    #t1{
+      margin-top: 50px;
+    }
+
+    #temp1{
+      text-align: left;
+      padding: 20px 70px 0px 70px;
+    }
+
+    #temp2 .limits{
+      text-align: left;
+      padding: 0px 15px 0px 15px;
+    }
+
+    #temp3{
+      text-align: left;
+      padding: 20px 15px 0px 15px;
+    }
+
+    .row{
+      margin: 10px 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 1400px) and (min-width: 1201px) {
+    .row{
+      margin: 10px 20px;
+    }
+
+    #t1{
+      margin-top: 100px;
     }
   }

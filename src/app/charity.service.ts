@@ -6,7 +6,7 @@ import { Cancel, Status } from './CancelDonation';
 import { Charity, Root } from './Charity';
 import { CharityByBn, RootObject } from './CharityByBn';
 import { Contact } from './Contact';
-import { Option } from './Extra';
+import { Option, UserInfo } from './Extra';
 import { Login } from './Login';
 import { PickupSchedule } from './PickupSchedule';
 import { Register } from './Register';
@@ -20,7 +20,15 @@ const limit = 5;
 })
 export class CharityService {
 
-  constructor(private http: HttpClient) { }
+  userStatus: UserInfo;
+
+  // isActive: boolean;
+
+  constructor(private http: HttpClient) { 
+    this.userStatus = {
+      isActive: false
+    };
+  }
 
   // Get Charities
   // getAllCharities(): Observable<any>{
@@ -74,6 +82,18 @@ export class CharityService {
 
   loginUser(data: Login): Observable<any>{
     return this.http.post<any>(`https://arcane-escarpment-54741.herokuapp.com/users/login`, data);
+  }
+
+  setUserStatus(status: boolean){
+    this.userStatus = {
+      isActive: status
+    }
+    // this.isActive = status;
+  }
+
+  getUserStatus(){
+    return this.userStatus;
+    // return this.isActive;
   }
 
 }

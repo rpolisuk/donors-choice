@@ -13,3 +13,39 @@ input:required {
     font-weight: 600;
     font-style: italic;
 }
+
+@media only screen and (max-width: 650px) {
+  #cont, #cont2{
+      display: none;
+  }
+
+  #pg{
+      padding-top: 0px !important;
+  }
+}
+
+@media only screen and (max-width: 800px) and (min-width: 649px) {
+  #cont{
+    display: block;
+    width: 100%;
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat;
+  }
+
+  #cont2{
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1019px) and (min-width: 799px) {
+
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 1020px) {
+
+}
+
+@media only screen and (max-width: 1400px) and (min-width: 1201px) {
+
+}
