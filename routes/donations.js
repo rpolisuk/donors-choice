@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const sgMail = require('@sendgrid/mail');
 const config = require('../config');
-var Donation = require('../models/donation');
-var authenticate = require('../authenticate');
+const Donation = require('../models/donation');
+const Charity = require('../models/charity');
+// const authenticate = require('../authenticate');
 
 /*
 {
@@ -17,9 +18,11 @@ var authenticate = require('../authenticate');
 router.route('/create')
   .post(async (req, res, next) => {
     Donation.create(req.body)
-      .then((donation) => {
+      .then(async (donation) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
+        //
+        const charity = await Charity.findOne({ businessnumber: req.body.businessnumber }).exec();
         //
         // Send email
         sgMail.setApiKey(config.SENDGRID_API_KEY);
@@ -27,7 +30,7 @@ router.route('/create')
           to: `${req.body.donorid}`,
           from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
           subject: 'Donation Confirmation',
-          html: `<p>A donation has been successfully made in your name to ${req.body.businessnumber} for the amount of $${req.body.amount}.<br>
+          html: `<p>A donation has been successfully made in your name to ${charity.legalname} (${req.body.businessnumber}) for the amount of $${req.body.amount}.<br>
                 No tax receipt is issued for this donation, however we greatly appreciate your donation. Thank you for using Donor's Choice.</p>`
         };
         sgMail

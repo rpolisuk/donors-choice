@@ -4,6 +4,7 @@ const sgMail = require('@sendgrid/mail');
 const config = require('../config');
 var Pickup = require('../models/pickup');
 const User = require('../models/user');
+var Charity = require('../models/charity');
 var authenticate = require('../authenticate');
 
 /*
@@ -36,9 +37,11 @@ var authenticate = require('../authenticate');
 router.route('/schedule')
   .post((req, res, next) => {
     Pickup.create(req.body)
-      .then((pickup) => {
+      .then(async (pickup) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
+        //
+        const charity = await Charity.findOne({ businessnumber: pickup.donations[0].businessnumber }).exec();
         //
         // Send email
         sgMail.setApiKey(config.SENDGRID_API_KEY);
@@ -56,7 +59,7 @@ router.route('/schedule')
                 Postal Code: ${pickup.postalcode}<br>
                 Phone: ${pickup.phone}<br>
                 Items: ${pickup.items}<br>
-                Charity: ${pickup.donations[0].businessnumber}`
+                Charity: ${charity.legalname} (${pickup.donations[0].businessnumber})`
         };
         sgMail
           .send(msg)
