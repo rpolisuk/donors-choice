@@ -91,14 +91,12 @@ export class RegisterComponent implements OnInit {
                 alert("Sign-up Successful!");
 
                 this.router.navigate(['/donate']);
-                this.data.setUserStatus(true);
               }
               }
     },HttpErrorResponse=>{    
         if(HttpErrorResponse.status == 200){
           if(x==0){x =1 
         alert("Sign-up Successful!");
-        this.data.setUserStatus(true);
       }
       }
       if(HttpErrorResponse.status == 422){

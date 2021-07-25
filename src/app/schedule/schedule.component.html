@@ -138,7 +138,7 @@
             <p class="ptext">Pickup Date &amp; Time</p><hr>
             <div class="column2">
                 <!-- <label for="date">Date</label><br> -->
-                <input type="date" id="date" name="date" #date="ngModel" placeholder="Pickup Date*" style="border-radius: 5px;" [(ngModel)]="donation.pickupdate" required>
+                <input type="date" id="date" name="date" #date="ngModel" placeholder="Pickup Date*" style="border-radius: 5px;" [(ngModel)]="donation.pickupdate" required min="{{donation.pickupdate | date:'yyyy-MM-dd'}}">
                 <p style="font-size: medium;"><i>Default: Today's Date</i></p>
             </div>
 
@@ -181,7 +181,7 @@
             <label for="confirmationStmnt" style="font-size: large;">I ({{donation.contactname}}) want to donate used clothing to <b>{{clickedChrt.legalname}}</b> charity. The pickup date is <b>{{donation.pickupdate}}</b> and the time is in the <b>{{donation.pickuptime}}</b>.</label><br><br>
 
             <input style="margin-left: 16px;" type="checkbox" id="terms" name="terms" value="terms" #terms="ngModel" [(ngModel)]="option.terms" required>&nbsp;&nbsp;
-            <label for="terms" style="margin-bottom: 0px; font-size: large;">I agree to the <a routerLink="/about" style="color: brown; text-decoration: underline;">Terms and conditions</a> of Donors Choice</label>
+            <label for="terms" style="margin-bottom: 0px; font-size: large;">I agree to the <a routerLink="/about" style="color: brown; text-decoration: underline;" target="_blank">Terms and conditions</a> of Donors Choice</label>
             <span *ngIf="f.submitted && terms.errors?.required" class="help-block">Please accept the Terms and Conditions to make a donation</span><br><br><br>
 
             <button class="btn2" type="submit">DONATE</button>

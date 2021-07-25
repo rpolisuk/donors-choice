@@ -91,9 +91,6 @@ export class LoginComponent implements OnInit {
               // alert("Log-in successful!");
               this.router.navigate(['/donate']);
               // window.location.assign('/donate');
-              this.data.setUserStatus(true);
-              // this.head.userActive = true;
-              console.log(this.data.getUserStatus());
             }
           }
         }, HttpErrorResponse => {

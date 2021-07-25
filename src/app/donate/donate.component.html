@@ -24,8 +24,8 @@
             <!-- <select id="charities" style="width: 70%;" autofocus>
                 <option value={{charity.cat}} *ngFor = "let charity of charities">{{charity.cat}}</option>
             </select> -->
-            <input type="text" name="legalname" id="legalname" style="border-radius: 5px; width: 600px;" max="30" placeholder="Charity Name" autofocus [(ngModel)]="chrt.legalname"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button (click)="searchCharity($event, $event)" style="font-size: medium; padding: 10px;">Search</button><br><br>
+            <input type="text" name="legalname" id="legalname" style="border-radius: 5px; width: 600px;" max="30" placeholder="Charity Name" autofocus [(ngModel)]="chrt.legalname"/>
+            <button (click)="searchCharity($event, $event)" id="search" style="font-size: medium; padding: 10px 20px; margin-left: 50px;">Search</button><br><br>
             <p class="charityBox" id="searchResults"></p>
             <div *ngFor="let c of charitiesArray">
                 <a class="charityBox" [routerLink]="['/donate', c.businessnumber]">{{c.legalname}}</a>

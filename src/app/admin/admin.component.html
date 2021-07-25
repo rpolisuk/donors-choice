@@ -1,8 +1,8 @@
 <br><br><br>
-<img src="/assets/img/admin-banner.jpg" width="100%" style="background-size: cover; background-position: center; background-repeat: no-repeat;">
+<img src="/assets/img/admin-banner.jpg" width="100%" style="background-size: cover; background-position: center; background-repeat: no-repeat;" id="t1">
 
 <section style="padding-top: 50px;" class="py-5 shadow-sm index-forward">
-    <div class="container py-5" style="padding-bottom: 0px !important;">
+    <!-- <div class="container py-5" style="padding-bottom: 0px !important;">
       <header>
         <h1>Admin Page</h1><hr>
       </header><br>
@@ -27,24 +27,37 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="row2">
       <div *ngFor="let c of charitiesArray" class="column2">
         <h3 style="background-color: white;">Charity Info</h3>
         <div class="charityDetailBox">
-          <p>
-            <img src="/assets/img/charity.jpg" width="300px" height="200px"/><br><br>
-            <b>Pickup ID: </b>{{c.pickupid}}<br>
-            <b>Donor ID: </b>{{c.donorid}}<br>
-            <b>Admin ID: </b>{{c.adminid}}<br>
-            <b>Business Number: </b>{{c.businessnumber}}<br>
-            <b>Amount: </b>{{c.amount}}<br>
-            <b>Created Date: </b>{{c.createdAt}}<br>
-            <b>Updated Date: </b>{{c.updatedAt}}<br><br>
-            <button class="btn" (click)=confirmDonation(c.pickupid)>Confirm</button>
-            <button class="btn" style="float: right;" (click)=failedDonation(c.pickupid)>Failed</button>
-          </p>
+          <!-- <p> -->
+            <img src="/assets/img/charity.jpg" id="pic" width="300px" height="200px"/><br><br>
+            <form #f="ngForm">
+              <!-- <b>Pickup ID: </b>{{c.pickupid}}<br> -->
+              <!-- <b>Donor ID: </b>{{c.donorid}}<br> -->
+              <!-- <b>Admin ID: </b>{{c.adminid}}<br> -->
+              <!-- <b>Business Number: </b>{{c.businessnumber}}<br> -->
+              <!-- <b>Amount: </b>{{c.amount}}<br> -->
+              <!-- <b>Pickup ID: </b>{{c.pickupid}}<br> -->
+              <input type="text" class="form-control" value="{{c._id}}" id="_id" name="_id" disabled>
+              <!-- <b>Donor ID: </b>{{c.donorid}}<br> -->
+              <input type="text" class="form-control" value="{{c.username}}" id="username" name="username" disabled>
+              <!-- <b>Admin ID: </b>{{c.adminid}}<br> -->
+              <!-- <input type="text" class="form-control" value="{{c.adminid}}" id="adminid" name="adminid" disabled> -->
+              <!-- <b>Business Number: </b>{{c.businessnumber}}<br> -->
+              <!-- <div *ngFor="let cn of cNamesArray"> -->
+                <input type="text" class="form-control" value="{{c.donations[0].businessnumber}}" id="businessnumber" name="businessnumber" disabled>
+              <!-- </div> -->
+              <input type="number" class="form-control" placeholder="Amount" id="amount" #amount="ngModel" [(ngModel)]="recon.amount" name="amount" min="0" required>
+              <span *ngIf="f.submitted && amount.errors?.required" class="help-block">Amount is required</span><br>
+              <b>Created Date: </b>{{c.createdAt | date:'medium'}}<br><br>
+              <button class="btn" type="submit" (click)=confirmDonation(c._id,f,c.username,c.donations[0].businessnumber)>Confirm</button>
+              <button class="btn" style="float: right;" (click)=failedDonation(c._id)>Failed</button>
+            </form>
+          <!-- </p> -->
         </div>
       </div>
     </div>

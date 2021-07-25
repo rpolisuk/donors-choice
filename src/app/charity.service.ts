@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Admin, RootObj } from './Admin';
+import { Reconciliation, RootObj } from './Admin';
 import { Cancel, Status } from './CancelDonation';
 import { Charity, Root } from './Charity';
 import { CharityByBn, RootObject } from './CharityByBn';
@@ -20,15 +20,7 @@ const limit = 5;
 })
 export class CharityService {
 
-  userStatus: UserInfo;
-
-  // isActive: boolean;
-
-  constructor(private http: HttpClient) { 
-    this.userStatus = {
-      isActive: false
-    };
-  }
+  constructor(private http: HttpClient) { }
 
   // Get Charities
   // getAllCharities(): Observable<any>{
@@ -72,8 +64,11 @@ export class CharityService {
   }
 
   // Get All Donations of Donor
-  getAllDonationsByDonorId(donorId): Observable<RootObj>{
-    return this.http.get<RootObj>(`https://arcane-escarpment-54741.herokuapp.com/donations/history?donorid=${donorId}`);
+  // getAllDonationsByDonorId(donorId): Observable<RootObj>{
+  //   return this.http.get<RootObj>(`https://arcane-escarpment-54741.herokuapp.com/donations/history?donorid=${donorId}`);
+  // }
+  getAllDonations(): Observable<any>{
+    return this.http.get<any>(`https://arcane-escarpment-54741.herokuapp.com/pickups/requests`);
   }
 
   registerUser(data: Register): Observable<any>{
@@ -84,16 +79,8 @@ export class CharityService {
     return this.http.post<any>(`https://arcane-escarpment-54741.herokuapp.com/users/login`, data);
   }
 
-  setUserStatus(status: boolean){
-    this.userStatus = {
-      isActive: status
-    }
-    // this.isActive = status;
-  }
-
-  getUserStatus(){
-    return this.userStatus;
-    // return this.isActive;
+  createDonationReconciliation(data: Reconciliation): Observable<any>{
+    return this.http.post<any>(`https://arcane-escarpment-54741.herokuapp.com/donations/create`, data);
   }
 
 }

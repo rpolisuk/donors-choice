@@ -18,10 +18,6 @@ import { ContactComponent } from './contact/contact.component';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-// import { LoginComponent } from './login/login.component';
-// import { RegisterComponent } from './register/register.component';
-// import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-// import { AngularMaterialModule } from './angular-material.module';
 
 @NgModule({
   declarations: [
@@ -38,17 +34,13 @@ import { RegisterComponent } from './register/register.component';
     ContactComponent,
     AdminComponent,
     LoginComponent,
-    RegisterComponent,
-    // LoginComponent,
-    // RegisterComponent,
-    // ForgotPasswordComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    // AngularMaterialModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

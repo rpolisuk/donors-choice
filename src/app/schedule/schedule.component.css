@@ -91,6 +91,11 @@
     width: 100%;
   }
 
+  ::placeholder {
+    color: white;
+    opacity: 0.8; /* Firefox */
+  }
+
 
   /* DATE AND TIME PICKER */
   .column3 {

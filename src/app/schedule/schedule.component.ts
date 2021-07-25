@@ -179,7 +179,7 @@ export class ScheduleComponent implements OnInit {
 
       // Data submission
       this.data.newDonation(this.donation).subscribe(() => setTimeout(() => {
-        this.router.navigate(['/donate']);
+        this.router.navigate(['/home']);
       }, 8000));
 
 

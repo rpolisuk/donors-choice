@@ -48,22 +48,131 @@
     color: white;
   }
 
+  input[type=text], input[type=number]{
+    margin: 5px 0px;
+    color:black;
+  }
+
+  .form-control:disabled{
+    color:black;
+  }
+
   @media only screen and (max-width: 650px) {
-  
+    #t1{
+      display: block;
+      width: 100%;
+      background-size: contain; 
+      background-position: center; 
+      background-repeat: no-repeat;
+    }
+
+    .row2{
+      padding: 0px 10px 50px 10px;
+    }
+
+    .column2{
+      width: 100%;
+      margin: 10px;
+    }
+
+    #pic{
+      width: 100%;
+      height: 100%;
+    }
   }
   
   @media only screen and (max-width: 800px) and (min-width: 649px) {
-    
+    #t1{
+      display: block;
+      width: 100%;
+      background-size: contain; 
+      background-position: center; 
+      background-repeat: no-repeat;
+    }
+
+    .row2{
+      padding: 0px 10px 50px 10px;
+    }
+
+    .column2{
+      width: 50%;
+      margin: 10px 0px;
+    }
+
+    #pic{
+      width: 100%;
+      height: 100%;
+    }
   }
   
   @media only screen and (max-width: 1019px) and (min-width: 799px) {
-  
+    #t1{
+      display: block;
+      width: 100%;
+      background-size: contain; 
+      background-position: center; 
+      background-repeat: no-repeat;
+    }
+
+    .row2{
+      padding: 0px 10px 50px 10px;
+    }
+
+    .column2{
+      width: 50%;
+      margin: 10px 0px;
+    }
+
+    #pic{
+      width: 100%;
+      height: 100%;
+    }
   }
   
   @media only screen and (max-width: 1200px) and (min-width: 1020px) {
-  
+    #t1{
+      display: block;
+      width: 100%;
+      background-size: contain; 
+      background-position: center; 
+      background-repeat: no-repeat;
+    }
+
+    .row2{
+      padding: 0px 10px 50px 10px;
+    }
+
+    .column2{
+      width: 33%;
+      margin: 10px 0px;
+    }
+
+    #pic{
+      width: 100%;
+      height: 100%;
+    }
   }
   
   @media only screen and (max-width: 1400px) and (min-width: 1201px) {
-  
+    #t1{
+      display: block;
+      width: 100%;
+      background-size: contain; 
+      background-position: center; 
+      background-repeat: no-repeat;
+    }
+
+    .row2{
+      padding: 0px 70px 50px 70px;
+    }
+
+    .column2{
+      width: 33%;
+      margin: 10px 0px;
+    }
+
+    #pic{
+      width: 100%;
+      height: 100%;
+    }
   }
