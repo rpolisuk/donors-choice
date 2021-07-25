@@ -5,7 +5,7 @@ const config = require('../config');
 var Pickup = require('../models/pickup');
 const User = require('../models/user');
 var Charity = require('../models/charity');
-var authenticate = require('../authenticate');
+// var authenticate = require('../authenticate');
 
 /*
 {

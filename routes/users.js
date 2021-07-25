@@ -87,8 +87,8 @@ router.post('/signup', (req, res, next) => {
 // Verifies email address
 router.get('/verify',
   async (req, res) => {
-    const errURL = 'https://www.yahoo.com/';
-    const successURL = 'https://bing.com/';
+    const errURL = 'https://mighty-wildwood-32432.herokuapp.com/home';
+    const successURL = 'https://mighty-wildwood-32432.herokuapp.com/home';
 
     if (req.query.email === undefined || req.query.code === undefined) { // Missing info
       console.log('MISSING STUFF');
