@@ -64,52 +64,46 @@ export class AdminComponent implements OnInit {
     this.data.getAllDonations().subscribe(myData => {
       if (myData) {
         this.charitiesArray = myData.results;
-
-        for(this.i = 0; this.i < this.charitiesArray.length; this.i++){
-          this.querySub4 = this.data.getCharityByBn(this.charitiesArray[this.i].donations[0].businessnumber).subscribe(data => {
-            this.cNamesArray.push(data.charity.legalname);
-            // this.charitiesArray[this.i].donations[0].businessnumber = this.cNamesArray[this.i];
-          });
-          // this.charitiesArray[this.i].donations[0].businessnumber = this.cNamesArray[this.i];
+        
+        for(var j = 0; j < this.charitiesArray.length; j++){
+          if(this.charitiesArray[this.i].donations[0] != undefined){
+            this.justTry(j);
+          }
         }
 
-        console.log(this.cNamesArray);
-        // var count = 0;
-
-        // for(this.j = 0; this.j < this.cNamesArray.length; this.j++){
-        //   // this.charitiesArray[j].donations[0].businessnumber = this.cNamesArray[j];
-        //   // console.log(this.charitiesArray[j].donations[0].businessnumber);
-        //   // console.log(this.cNamesArray[j]);
-        //   // this.count++;
-        //   // console.log(this.count);
-        // }
-
-        // for(var i = 0; i < this.charitiesArray.length; i++){
-        //   this.bnsArray.push(this.charitiesArray[i].donations[0].businessnumber);
-        //   console.log(this.bnsArray);
-        // }
-
-        // for(var i = 0; i < this.bnsArray.length; i++){ 
-        //   this.querySub4 = this.data.getCharityByBn(this.bnsArray[i]).subscribe(myData => {
-        //     this.cNamesArray.push(myData.charity.legalname);
-        //   });
-        //   console.log(this.cNamesArray);
-        // }
-
-        
-
-        
-
-        // console.log(this.cNamesArray);
-        // console.log(this.charitiesArray);
+        if(this.charitiesArray.length != this.cNamesArray.length){
+          this.randomme();
+        }
       }
-
-      // for(var j = 0; j < this.cNamesArray.length; j++){
-      //   this.charitiesArray[j].donations[0].businessnumber = this.cNamesArray[j];
-      //   console.log("Hello");
-      // }
     });
 
+  }
+
+  async justTry(j: number){
+    this.querySub4 = this.data.getCharityByBn(this.charitiesArray[j].donations[0].businessnumber).subscribe(data => {
+      this.cNamesArray.push(data.charity.legalname);
+    });
+  }
+
+  async randomme(){
+    if(this.charitiesArray.length != this.cNamesArray.length){
+      
+      setTimeout(() => {
+        this.randomme();
+      }, 1000);
+
+      
+    }else{
+      this.passJ();
+    }
+  }
+
+  passJ(){
+    for(var q = 0; q < this.cNamesArray.length; q++){
+      this.charitiesArray[q].donations[0].businessnumber = this.cNamesArray[q];
+    }
+
+    console.log(this.charitiesArray);
   }
 
 
@@ -181,7 +175,7 @@ export class AdminComponent implements OnInit {
 
       this.recon.pickupid = pickupID;
       this.recon.donorid = donorID;
-      this.recon.adminid = "adminID";
+      this.recon.adminid = "polisuk@gmail.com";
       this.recon.businessnumber = businessNum;
 
       this.querySub2 = this.data.createDonationReconciliation(this.recon).subscribe();
@@ -204,26 +198,5 @@ export class AdminComponent implements OnInit {
       }
     });
   }
-
-
-  // dataCopy(cArray: Array<Result>){
-  //   for(var i = 0; i < this.charitiesArray.length; i++){
-  //     cArray[i].pickupid = this.charitiesArray[i].pickupid;
-  //     cArray[i].donorid = this.charitiesArray[i].donorid;
-  //     cArray[i].adminid = this.charitiesArray[i].adminid;
-  //     cArray[i].businessnumber = this.charitiesArray[i].businessnumber;
-  //     cArray[i].amount = this.charitiesArray[i].amount;
-  //   }
-
-  //   for(var i = 0; i < cArray.length; i++){
-  //     this.charitiesArray[i].pickupid = cArray[i].pickupid;
-  //     this.charitiesArray[i].donorid = cArray[i].donorid;
-  //     this.charitiesArray[i].adminid = cArray[i].adminid;
-  //     this.charitiesArray[i].businessnumber = cArray[i].businessnumber;
-  //     this.charitiesArray[i].amount = cArray[i].amount;
-  //   }
-
-  //   return this.charitiesArray;
-  // }
 
 }

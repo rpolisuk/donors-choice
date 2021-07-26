@@ -1,4 +1,5 @@
 import { Component, Injectable, Input, OnInit } from '@angular/core';
+// import { loadavg } from 'os';
 import { CharityService } from '../charity.service';
 import { UserInfo } from '../Extra';
 
@@ -13,7 +14,9 @@ import { UserInfo } from '../Extra';
 export class HeaderComponent implements OnInit {
 
   // user: UserInfo;
-  // @Input() userActive: boolean;
+  userActive: boolean;
+  usern: string;
+  initials: string;
 
   constructor(private data: CharityService) {
     // this.user = this.data.getUserStatus();
@@ -26,11 +29,20 @@ export class HeaderComponent implements OnInit {
     // console.log(this.user);
     // this.userActive = this.user.isActive;
 
-    // if(this.user.isActive == true){
-    //   this.userActive = this.user.isActive;
-    // }else{
-    //   this.userActive = false;
-    // }
+    var jt = localStorage.getItem('access_token');
+
+    if(jt == null || jt == ""){
+      this.userActive = false;
+    }else{
+      this.userActive = true;
+
+      var n = localStorage.getItem('name');
+
+      if(n){
+        this.initials = n.charAt(0).toString().toUpperCase();
+        this.usern = this.initials;
+      }
+    }
   }
 
   myFunction() {
@@ -43,6 +55,12 @@ export class HeaderComponent implements OnInit {
         x.style.display = "block";
       }
     }
+  }
+
+  logout(){
+    localStorage.setItem('access_token', "");
+
+    this.ngOnInit();
   }
 
 }

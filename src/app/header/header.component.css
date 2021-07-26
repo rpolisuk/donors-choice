@@ -8,6 +8,18 @@
     padding: 5px 20px;
 }
 
+.btn4{
+  padding: 5px 10px;
+  border: 1px solid blue;
+  border-radius: 50% !important;
+  background: darkorange;
+  font-weight: 600;
+  color: black;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 #bars{
   display: none;
 }

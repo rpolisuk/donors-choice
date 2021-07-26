@@ -31,6 +31,15 @@ export class DonateComponent implements OnInit {
   constructor(private data: CharityService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    // localStorage.setItem('access_token',"");
+    var x = localStorage.getItem('access_token');
+    if(x == null || x == ""){   // Change CSS/html to make it look better and redirect after few sec to login page
+      // this is require to check if the user is received or not
+      alert('Unathorized Please Login First'); 
+      this.router.navigate(['/login']);
+    }else{
+      // remove alert
+      
     const form2Display = document.getElementById("form2");
     const form3Display = document.getElementById("form3");
     const results = document.getElementById("searchResults");
@@ -67,6 +76,7 @@ export class DonateComponent implements OnInit {
       results.style.display = "none";
     }
 
+  }
   }
 
   // Hide form1, display form2

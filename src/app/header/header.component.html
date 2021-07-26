@@ -61,19 +61,19 @@
         
 
         <div class="navbar-text" id="extra">
-          <div class="dropdown">
-            <button class=" btn"><img src="/assets/img/user-icon.png" width="27px" height="25px" /></button>
+          <div class="dropdown" *ngIf="!userActive">
+            <button class="btn"><img src="/assets/img/user-icon.png" width="27px" height="25px" /></button>
             <div class="dropdown-content">
               <a routerLink="/login">LOGIN</a>
               <a routerLink="/register">REGISTER</a>
             </div>
           </div>
-          <!-- <div class="dropdown" *ngIf="userActive">
-            <button class=" btn"><img src="/assets/img/user-icon.webp" width="27px" height="25px" /> User</button>
+          <div class="dropdown" *ngIf="userActive">
+            <button class="btn btn4">{{usern}}</button>
             <div class="dropdown-content">
-              <a href="/login">LOGOUT</a>
+              <a (click)="logout()" href="/home">LOGOUT</a>
             </div>
-          </div> -->
+          </div>
           <button class="btn2"><a routerLink="/donate" style="text-decoration: none; color: white;">DONATE NOW</a></button>
 
           <!-- <div id="bars2">
