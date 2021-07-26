@@ -88,15 +88,21 @@ export class RegisterComponent implements OnInit {
               if(error.status == 200){
                 if(x==0){
                   x = 1;
-                alert("Sign-up Successful!");
+                alert("Sign-up Successful! You will receive an email in your inbox, please click the link to confirm your email and login using that email");
 
-                this.router.navigate(['/donate']);
+                setTimeout(()=>{
+                  this.router.navigate(['/login'])
+                }, 7000);
               }
               }
     },HttpErrorResponse=>{    
         if(HttpErrorResponse.status == 200){
           if(x==0){x =1 
-        alert("Sign-up Successful!");
+        alert("Sign-up Successful! You will receive an email in your inbox, please click the link to confirm your email and login using that email");
+
+        setTimeout(()=>{
+          this.router.navigate(['/login'])
+        }, 10000);
       }
       }
       if(HttpErrorResponse.status == 422){

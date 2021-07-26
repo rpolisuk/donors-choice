@@ -62,7 +62,7 @@
             <div class="column2">
                 <!-- <label for="city">City</label><br> -->
                 <!-- <input type="text" name="city" id="city" style="border-radius: 5px;"/><br><br> -->
-                <select id="city" name="city" [(ngModel)]="donation.city" #city="ngModel" required>
+                <select id="city" name="city" [(ngModel)]="donation.city" (ngModelChange)="cityChanged($event)" #city="ngModel" required>
                     <option disabled value="City" selected>City</option>
                     <option value="Toronto">Toronto</option>
                     <option value="Montreal">Montreal</option>
@@ -86,7 +86,7 @@
             <div class="column2">
                 <!-- <label for="province">Province</label><br> -->
                 <!-- <input type="text" name="province" id="province" style="border-radius: 5px;"/><br><br> -->
-                <select id="province" name="province" [(ngModel)]="donation.province" required>
+                <select id="province" name="province" [(ngModel)]="donation.province" required disabled>
                     <option disabled value="Province" selected>Province</option>
                     <option value="Ontario">Ontario</option>
                     <option value="Quebec">Quebec</option>
@@ -138,7 +138,7 @@
             <p class="ptext">Pickup Date &amp; Time</p><hr>
             <div class="column2">
                 <!-- <label for="date">Date</label><br> -->
-                <input type="date" id="date" name="date" #date="ngModel" placeholder="Pickup Date*" style="border-radius: 5px;" [(ngModel)]="donation.pickupdate" required min="{{donation.pickupdate | date:'yyyy-MM-dd'}}">
+                <input type="date" id="date" name="date" #date="ngModel" placeholder="Pickup Date*" style="border-radius: 5px;" [(ngModel)]="donation.pickupdate" required min="{{todayDate | date:'yyyy-MM-dd'}}">
                 <p style="font-size: medium;"><i>Default: Today's Date</i></p>
             </div>
 
@@ -185,7 +185,9 @@
             <span *ngIf="f.submitted && terms.errors?.required" class="help-block">Please accept the Terms and Conditions to make a donation</span><br><br><br>
 
             <button class="btn2" type="submit">DONATE</button>
-            <button class="btn2" style="background-color: red; float: right; padding: 10px 55px;" type="reset">RESET</button>
+            
+            <button class="btn2" style="background-color: red; float: right; padding: 10px 55px;" type="reset">RESET</button><br>
+            <span class="help-block" id="donateError"></span>
         </form>
 
         <form id="form2">

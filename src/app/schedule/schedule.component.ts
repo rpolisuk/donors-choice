@@ -27,6 +27,8 @@ export class ScheduleComponent implements OnInit {
   option: Option;
   // public formData: FormData = new FormData();
 
+  todayDate: Date = new Date();
+
 
   constructor(private data: CharityService, private route: ActivatedRoute, private router: Router) { }
 
@@ -69,6 +71,55 @@ export class ScheduleComponent implements OnInit {
     
   }
 
+  // City value changed
+  cityChanged(city: string){
+    if(city == "Toronto"){
+      this.donation.province = "Ontario";
+    }
+    if(city == "Montreal"){
+      this.donation.province = "Quebec";
+    }
+    if(city == "Vancouver"){
+      this.donation.province = "British Columbia";
+    }
+    if(city == "Calgary"){
+      this.donation.province = "Alberta";
+    }
+    if(city == "Edmonton"){
+      this.donation.province = "Alberta";
+    }
+    if(city == "Ottawa–Gatineau"){
+      this.donation.province = "Ontario";
+    }
+    if(city == "Winnipeg"){
+      this.donation.province = "Manitoba";
+    }
+    if(city == "Quebec City"){
+      this.donation.province = "Quebec";
+    }
+    if(city == "Hamilton"){
+      this.donation.province = "Ontario";
+    }
+    if(city == "Kitchener–Waterloo–Cambridge"){
+      this.donation.province = "Ontario";
+    }
+    if(city == "London"){
+      this.donation.province = "Ontario";
+    }
+    if(city == "Victoria"){
+      this.donation.province = "British Columbia";
+    }
+    if(city == "Halifax"){
+      this.donation.province = "Nova Scotia";
+    }
+    if(city == "Oshawa"){
+      this.donation.province = "Ontario";
+    }
+    if(city == "Windsor"){
+      this.donation.province = "Ontario";
+    }
+  }
+
   // Submit button clicked
   donateNow(e, f: NgForm){
     const men = document.querySelector("#men:checked");
@@ -92,25 +143,38 @@ export class ScheduleComponent implements OnInit {
     const pRegex = /^\d{10}$/;
     const eRegex = /[a-z0-9]((\.|\_)?[a-z0-9]){3,}@g(oogle)?mail\.com$/;
 
+    const dError = document.getElementById("donateError");
+
     
     if(f.invalid){
       console.log("Validation errors");
 
+      if(dError){
+        dError.innerHTML = "All fields are required!";
+      }
     }
 
     else if(pError && !pRegex.test(this.donation.phone)){
-          pError.innerHTML = "Only numbers and upto 10 digits"
+          pError.innerHTML = "Only numbers and up to 10 digits";
           // f.invalid;
           console.log("I m e in");
+
+          if(dError){
+            dError.innerHTML = "Phone field only allow numbers and up to 10 digits";
+          }
         }
 
     else if(eError && !eRegex.test(this.donation.username)){
-          eError.innerHTML = "Only Gmail address is allowed"
+          eError.innerHTML = "Only Gmail address is allowed";
           
           if(pError)
             pError.innerHTML = "";
           // f.invalid;
           console.log("I m e in");
+
+          if(dError){
+            dError.innerHTML = "Only Gmail address is allowed";
+          }
         }
       
     
@@ -120,8 +184,13 @@ export class ScheduleComponent implements OnInit {
           console.log("City");
         }
 
-        if(eError)
+        if(eError){
           eError.innerHTML = "";
+        }
+
+        if(dError){
+          dError.innerHTML = "City is required";
+        }
     }
     else if(this.donation.province == "Province"){
         if(sProvince){
@@ -129,8 +198,13 @@ export class ScheduleComponent implements OnInit {
           console.log("Province");
         }
 
-        if(sCity)
+        if(sCity){
           sCity.innerHTML = "";
+        }
+
+        if(dError){
+          dError.innerHTML = "Province is required";
+        }
     }
     else if(this.option.men == false && this.option.women == false && this.option.children == false){
 
@@ -140,8 +214,13 @@ export class ScheduleComponent implements OnInit {
         items3.innerHTML = "Please select any clothings to donate";
       }
 
-      if(sProvince)
+      if(sProvince){
         sProvince.innerHTML = "";
+      }
+
+      if(dError){
+        dError.innerHTML = "Please select any clothings to donate";
+      }
     
     }
     // else if(this.option.terms == false){
@@ -152,6 +231,10 @@ export class ScheduleComponent implements OnInit {
 
     // }
     else{
+
+      if(dError){
+        dError.innerHTML = "";
+      }
       
       if(men){
         if(men != null){

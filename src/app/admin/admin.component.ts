@@ -100,7 +100,7 @@ export class AdminComponent implements OnInit {
 
   passJ(){
     for(var q = 0; q < this.cNamesArray.length; q++){
-      this.charitiesArray[q].donations[0].businessnumber = this.cNamesArray[q];
+      this.charitiesArray[q].phone = this.cNamesArray[q];
     }
 
     console.log(this.charitiesArray);
