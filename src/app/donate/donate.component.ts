@@ -6,6 +6,13 @@ import { Charity, Root } from '../Charity';
 import { Deserializable } from '../shared/models/deserializable.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cancel, Status } from '../CancelDonation';
+import { ViewChild, TemplateRef, ElementRef, AfterViewInit } from '@angular/core';
+import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
+import { Keepalive } from '@ng-idle/keepalive';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-donate',
@@ -25,10 +32,56 @@ export class DonateComponent implements OnInit {
 
   page: number = 1;
   cancel: Cancel;
-  donationStatus: Status;
-  
+  donationStatus: Status; 
 
-  constructor(private data: CharityService, private route: ActivatedRoute, private router: Router) { }
+  idleState = 'Not started.';
+  timedOut = false;
+  lastPing: Date;
+  public modalRef: BsModalRef;
+
+  @ViewChild('childModal', { static: false }) childModal: ModalDirective;
+
+  constructor(private data: CharityService, private route: ActivatedRoute, private router: Router, private idle: Idle, private keepalive: Keepalive, private session: SessionService) { 
+    // sets an idle timeout of 5 seconds, for testing purposes.
+    idle.setIdle(150);
+    // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
+    idle.setTimeout(5);
+    // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
+    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+    idle.onIdleEnd.subscribe(() => { 
+      this.idleState = 'No longer idle.'
+      console.log(this.idleState);
+      this.reset();
+    });
+    
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timed out!';
+      this.timedOut = true;
+      console.log(this.idleState);
+      localStorage.setItem('access_token', "");
+      window.location.assign('/');
+    });
+    
+    idle.onIdleStart.subscribe(() => {
+        this.idleState = 'You\'ve gone idle!'
+        console.log(this.idleState);
+        this.childModal.show();
+        // alert("Sign out in 5");
+    });
+    
+    idle.onTimeoutWarning.subscribe((countdown) => {
+      this.idleState = 'You will time out in ' + countdown + ' seconds!'
+      console.log(this.idleState);
+    });
+
+    // sets the ping interval to 15 seconds
+    keepalive.interval(15);
+
+    keepalive.onPing.subscribe(() => this.lastPing = new Date());
+
+    this.reset();
+  }
 
   ngOnInit(): void {
     // localStorage.setItem('access_token',"");
@@ -40,43 +93,65 @@ export class DonateComponent implements OnInit {
     }else{
       // remove alert
       
-    const form2Display = document.getElementById("form2");
-    const form3Display = document.getElementById("form3");
-    const results = document.getElementById("searchResults");
+      const form2Display = document.getElementById("form2");
+      const form3Display = document.getElementById("form3");
+      const results = document.getElementById("searchResults");
 
-    this.chrt = {
-        _id: "",
-        legalname: "",
-        businessnumber: "",
-        postalcode: "",
-        addressline1: "",
-        addressline2: "",
-        phone: "",
-        city: "",
-        province: ""
-    }
+      this.chrt = {
+          _id: "",
+          legalname: "",
+          businessnumber: "",
+          postalcode: "",
+          addressline1: "",
+          addressline2: "",
+          phone: "",
+          city: "",
+          province: ""
+      }
 
-    this.cancel = {
-      cancelID: ""
-    }
+      this.cancel = {
+        cancelID: ""
+      }
 
-    this.donationStatus = {
-      status: "cancelled"
-    }
+      this.donationStatus = {
+        status: "cancelled"
+      }
 
-    if(form2Display){
-      form2Display.style.display = "none";
-    }
+      if(form2Display){
+        form2Display.style.display = "none";
+      }
 
-    if(form3Display){
-      form3Display.style.display = "none";
-    }
-    
-    if(results){
-      results.style.display = "none";
-    }
+      if(form3Display){
+        form3Display.style.display = "none";
+      }
+      
+      if(results){
+        results.style.display = "none";
+      }
 
+    }
   }
+
+  reset() {
+    this.idle.watch();
+    //xthis.idleState = 'Started.';
+    this.timedOut = false;
+  }
+
+  hideChildModal(): void {
+    this.childModal.hide();
+  }
+
+  stay() {
+    this.childModal.hide();
+    this.reset();
+  }
+
+  logout() {
+    this.childModal.hide();
+    this.session.setUserLoggedIn(false);
+    localStorage.setItem('access_token', "");
+    window.location.assign('/');
   }
 
   // Hide form1, display form2

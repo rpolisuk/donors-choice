@@ -9,6 +9,7 @@ import { UserInfo } from '../Extra';
 import { HeaderComponent } from '../header/header.component';
 import { Login } from '../Login';
 import { Config } from '../Response';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   success: boolean = false;
   
-  constructor(private auth:AuthService,private data: CharityService, private router: Router, private http: HttpClient) { }
+  constructor(private auth:AuthService,private data: CharityService, private router: Router, private http: HttpClient, private session: SessionService) { }
 
   ngOnInit(): void {
 
@@ -105,15 +106,17 @@ export class LoginComponent implements OnInit {
           }).subscribe(mydata => {
                 if(mydata){
 
+                  this.success = true;
+
                   y = mydata.token;
                 this.auth.setToken(y);  
 
                 this.auth.setUser(this.formData.email);
 
-                
+                this.session.setUserLoggedIn(true);
 
                 window.location.assign('/donate');
-                }});
+              }});
              // this.router.navigate(['/donate']);
               // window.location.assign('/donate');
               // this.data.setUserStatus(true);
@@ -128,6 +131,8 @@ export class LoginComponent implements OnInit {
           if(cancelError){
             cancelError.innerHTML = "Please enter valid email and password"
           }
+
+          this.success = false;
         }
         if(HttpErrorResponse.status == 401){
           console.log("401 Error");
@@ -135,6 +140,8 @@ export class LoginComponent implements OnInit {
           if(cancelError){
             cancelError.innerHTML = "Incorrect Username and/or Password"
           }
+
+          this.success = false;
         }
         if(HttpErrorResponse.status == 400){
           console.log("400 Error");
@@ -142,6 +149,8 @@ export class LoginComponent implements OnInit {
           if(cancelError){
             cancelError.innerHTML = "Error in submission. Please try again later"
           }
+
+          this.success = false;
         }
       })
     }

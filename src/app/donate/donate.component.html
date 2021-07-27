@@ -52,3 +52,24 @@
       </form>
     </div>
 </div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-md" style="max-width: 400px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">You Have Been Idle!</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         {{idleState}}
+        <div class="row mrgbtm" style="padding: 10px 20px; display: block;">
+          <button type="button" (click)="logout()" style="float: left; margin: 10px;" class="btn btn-danger">Logout</button>
+          <button type="button" (click)="stay()" style="float: right; margin: 10px; padding: 0.5rem 1.5rem;" class="btn btn-success">Stay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
