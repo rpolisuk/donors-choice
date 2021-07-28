@@ -141,21 +141,120 @@
   }
 
   @media only screen and (max-width: 650px) {
-  
+    .row2{
+      padding: 70px 10px 70px 10px;
+    }
+
+    .box{
+      padding: 20px 10px;
+    }
+
+    hr{
+      width: 30%;
+    }
+
+    .column2{
+      width: 100% !important;
+      margin: 0px;
+      margin-bottom: 20px;
+    }
+
+    .btn2{
+      width: 100%;
+      margin-bottom: 20px;
+    }
   }
   
   @media only screen and (max-width: 800px) and (min-width: 649px) {
-    
+    .row2{
+      padding: 70px 50px 70px 50px;
+    }
+
+    .box{
+      padding: 20px 70px;
+    }
+
+    hr{
+      width: 30%;
+    }
+
+    .column2{
+      width: 100% !important;
+      margin: 0px;
+      margin-bottom: 20px;
+    }
   }
   
   @media only screen and (max-width: 1019px) and (min-width: 799px) {
-  
+    .row2{
+      padding: 70px 50px 70px 50px;
+    }
+
+    .box{
+      padding: 20px 50px;
+    }
+
+    hr{
+      width: 30%;
+    }
+
+    .column2{
+      width: 45% !important;
+      margin: 10px;
+      margin-bottom: 20px;
+    }
+
+    #contree{
+      width: 93% !important;
+    }
+
+    #c1, #c2, #c3{
+      width: 30% !important;
+    }
+
+    #c4, #c5, #c6{
+      width: 30% !important;
+    }
   }
   
   @media only screen and (max-width: 1200px) and (min-width: 1020px) {
-  
+    .row2{
+      padding: 70px 70px 70px 70px;
+    }
+
+    .box{
+      padding: 20px 90px;
+    }
+
+    hr{
+      width: 30%;
+    }
+
+    .column2{
+      width: 45% !important;
+      margin: 10px;
+      margin-bottom: 20px;
+    }
+
+    #contree{
+      width: 93% !important;
+    }
+
+    #c1, #c2, #c3{
+      width: 30% !important;
+    }
+
+    #c4, #c5, #c6{
+      width: 30% !important;
+    }
   }
   
   @media only screen and (max-width: 1400px) and (min-width: 1201px) {
-  
+    .row2{
+      padding: 70px 30px 70px 30px;
+    }
+
+    .box{
+      padding: 20px 90px;
+    }
   }
