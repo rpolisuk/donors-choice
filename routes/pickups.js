@@ -45,7 +45,7 @@ router.route('/schedule')
         //
         // Send email
         sgMail.setApiKey(config.SENDGRID_API_KEY);
-        const msg = {
+        const userMsg = {
           to: `${pickup.username}`,
           from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
           subject: 'Pickup Confirmation',
@@ -61,8 +61,34 @@ router.route('/schedule')
                 Items: ${pickup.items}<br>
                 Charity: ${charity.legalname} (${pickup.donations[0].businessnumber})`
         };
+        const adminMsg = {
+          to: 'polisuk@gmail.com',
+          from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
+          subject: 'Pickup Schedule Request',
+          html: `<p>A pickup is scheduled for ${pickup.pickupdate} for ${pickup.pickuptime}.<br>
+                Here is your pickup information:<br>
+                Confirmation #: ${pickup._id}<br>
+                Contact Name: ${pickup.contactname}<br>
+                Address: ${pickup.address}<br>
+                City: ${pickup.city}<br>
+                Province: ${pickup.province}<br>
+                Postal Code: ${pickup.postalcode}<br>
+                Phone: ${pickup.phone}<br>
+                Items: ${pickup.items}<br>
+                Charity: ${charity.legalname} (${pickup.donations[0].businessnumber})`
+        };
         sgMail
-          .send(msg)
+          .send(userMsg)
+          .then((response) => {
+            console.log(response[0].statusCode);
+            console.log(response[0].headers);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        //
+        sgMail
+          .send(adminMsg)
           .then((response) => {
             console.log(response[0].statusCode);
             console.log(response[0].headers);
