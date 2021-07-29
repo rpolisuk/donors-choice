@@ -143,6 +143,7 @@ router.post('/login', passport.authenticate('local'),
           token: token,
           _id: req.user._id,
           verified: foundUser.verified,
+          admin: foundUser.admin,
           status: 'You are successfully logged in!'
         });
       });
