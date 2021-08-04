@@ -29,6 +29,13 @@ export class AuthService {
     localStorage.setItem('name',name);
   }
 
+  public getAdmin(){
+    localStorage.getItem('admin');
+  }
+  public setAdmin(admin){
+    localStorage.setItem('admin',admin);
+  }
+
   public readToken(): any{
     const token = localStorage.getItem('access_token');
     //return helper.decodeToken(token);

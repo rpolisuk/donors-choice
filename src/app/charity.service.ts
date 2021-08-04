@@ -20,6 +20,8 @@ const limit = 5;
 })
 export class CharityService {
 
+  // isAdmin: boolean;
+
   constructor(private http: HttpClient) { }
 
   // Get Charities

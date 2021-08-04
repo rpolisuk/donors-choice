@@ -60,7 +60,7 @@ export class ScheduleComponent implements OnInit {
     this.querySub2 = this.route.params.subscribe(params =>{
       this.data.getCharityByBn(params['businessnumber']).subscribe(myData => {
         this.clickedChrt = myData.charity;
-        this.BNcharity = this.clickedChrt.businessnumber;
+        this.BNcharity = myData.charity.businessnumber;
         // console.log(myData.charity);
       });
     })

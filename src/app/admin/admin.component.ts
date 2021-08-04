@@ -61,6 +61,12 @@ export class AdminComponent implements OnInit {
     this.bnsArray = [];
     this.cNamesArray = [];
 
+    var userAdmin = localStorage.getItem('admin');
+
+    console.log(userAdmin);
+
+    if(userAdmin == "true"){
+
     this.data.getAllDonations().subscribe(myData => {
       if (myData) {
         this.charitiesArray = myData.results;
@@ -77,12 +83,18 @@ export class AdminComponent implements OnInit {
       }
     });
 
+  }else{
+    this.router.navigate(['/home']);
+  }
+
   }
 
   async justTry(j: number){
     this.querySub4 = this.data.getCharityByBn(this.charitiesArray[j].donations[0].businessnumber).subscribe(data => {
       this.cNamesArray.push(data.charity.legalname);
     });
+
+    console.log(this.cNamesArray);
   }
 
   async randomme(){
@@ -182,7 +194,9 @@ export class AdminComponent implements OnInit {
 
       this.querySub3 = this.data.cancelDonationById(pickupID, this.donationStatusConfirmed).subscribe(myData => {
         if(myData){
-          window.alert(`The donation with pickup ID: ${pickupID} is Confirmed. An email has been sent to the user with donation details.`);
+          window.alert(`The donation with pickup ID: ${pickupID} is Confirmed. An email has been sent to the user at ${donorID} with donation details.`);
+
+          this.ngOnInit();
         }
       });
     }else{
@@ -191,10 +205,12 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  failedDonation(pickupID){
+  failedDonation(pickupID, donorID){
     this.querySub2 = this.data.cancelDonationById(pickupID, this.donationStatusFailed).subscribe(myData => {
       if(myData){
-        window.alert(`The donation with pickup ID: ${pickupID} is Failed. An email has been sent to the user with donation details.`);
+        window.alert(`The donation with pickup ID: ${pickupID} is Failed. An email has been sent to the user at ${donorID} with donation details.`);
+
+        this.ngOnInit();
       }
     });
   }

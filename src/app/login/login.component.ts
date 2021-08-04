@@ -100,22 +100,35 @@ export class LoginComponent implements OnInit {
                 x = 1;
               // alert("Log-in successful!");
               var y =""
+              var a = "";
               this.http.post<any>('https://arcane-escarpment-54741.herokuapp.com/users/login', {
             "username": this.formData.email,
             "password": this.formData.password
           }).subscribe(mydata => {
                 if(mydata){
 
+                  if(mydata.verified == true){
+
                   this.success = true;
 
                   y = mydata.token;
-                this.auth.setToken(y);  
 
-                this.auth.setUser(this.formData.email);
+                  a = (mydata.admin).toString();
 
-                this.session.setUserLoggedIn(true);
+                  this.auth.setToken(y);  
 
-                window.location.assign('/donate');
+                  this.auth.setUser(this.formData.email);
+
+                  this.auth.setAdmin(a);
+
+                  this.session.setUserLoggedIn(true);
+
+                  window.location.assign('/donate');
+                  }else{
+                    alert("You have not verified your email. Please verified your email by clicking on the link provided in your email.");
+
+                    window.location.assign('/login');
+                  }
               }});
              // this.router.navigate(['/donate']);
               // window.location.assign('/donate');

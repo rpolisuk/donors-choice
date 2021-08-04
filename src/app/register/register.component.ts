@@ -90,9 +90,7 @@ export class RegisterComponent implements OnInit {
                   x = 1;
                 alert("Sign-up Successful! You will receive an email in your inbox, please click the link to confirm your email and login using that email");
 
-                setTimeout(()=>{
-                  this.router.navigate(['/login'])
-                }, 7000);
+                  this.router.navigate(['/login']);
               }
               }
     },HttpErrorResponse=>{    
