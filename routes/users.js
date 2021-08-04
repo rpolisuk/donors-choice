@@ -265,7 +265,6 @@ router.put('/reset/:token', function (req, res) {
   async.waterfall([
     function (done) {
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (_, user) {
-        console.log('USER=' + user);
         if (user === null) {
           res.statusCode = 422;
           res.setHeader('Content-Type', 'application/json');
@@ -274,20 +273,18 @@ router.put('/reset/:token', function (req, res) {
             status: 'Password reset token is invalid or has expired.'
           });
         } else {
-          user.password = req.body.password;
           user.resetPasswordToken = null;
           user.resetPasswordExpires = null;
 
-          user.save(function (_) {
-            req.logIn(user, function (err) {
-              done(err, user);
-            });
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json({
-              success: true,
-              status: 'Request to reset password was succesfully processed.'
-            });
+          user.setPassword(req.body.password, function () {
+            user.save();
+          });
+
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({
+            success: true,
+            status: 'Request to reset password was succesfully processed.'
           });
         }
       });
