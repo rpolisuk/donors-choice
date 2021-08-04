@@ -172,14 +172,14 @@ router.post('/forgot', function (req, res, next) {
             success: false,
             status: 'No account with that username exists.'
           });
+        } else {
+          user.resetPasswordToken = token;
+          user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+          user.save(function (err) {
+            done(err, token, user);
+          });
         }
-
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
-        user.save(function (err) {
-          done(err, token, user);
-        });
       });
     },
     function (token, user, done) {
