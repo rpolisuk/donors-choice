@@ -7,8 +7,9 @@ All project artifacts to be available through GitHub and the team channel in MS 
 5.	Installation packages (GitHub)
 6.	Installation Manual (video format is accepted)
 7.	Executable Programs
-   * There are no executable programs
+    * There are no executable programs
 9.	A database with meaningful test data
-10.	A list of deviations from what was proposed in PRJ566 -> Admin Dashboard
-11.	A list of known bugs (GitHub)
-12.	Instructions on how to run the system on Heroku including usernames and required passwords. -> Admin account
+    * The MongoDB Atlas database is already loaded with meaningful test data and can be accessed via the web application.
+11. A list of deviations from what was proposed in PRJ566 -> Admin Dashboard
+12. A list of known bugs (GitHub)
+13. Instructions on how to run the system on Heroku including usernames and required passwords. -> Admin account
