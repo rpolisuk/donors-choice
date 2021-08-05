@@ -5,8 +5,9 @@ All project artifacts to be available through GitHub and the team channel in MS 
 3.	Project Technical Documents (GitHub)
 4.	User Manual (video format is accepted)
 5.	Installation packages (GitHub)
-6.	Installation Manual (video format is accepted)
-7.	Executable Programs
+    * No additional installation packages are required other than the source code above.
+7.	Installation Manual (video format is accepted)
+8.	Executable Programs
     * There are no executable programs
 9.	A database with meaningful test data
     * The MongoDB Atlas database is already loaded with meaningful test data and can be accessed via the web application.
