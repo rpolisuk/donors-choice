@@ -1,10 +1,12 @@
+# Overview
 The Donor's Choice web site is currently running on a Heroku web site connecting to a Heroku API server which then connects to a MongoDB cloud database. As well email is provided using Twiloo SendGrid. These instructions assume that you will be using the same technology providers however it is possible to swap these with other providers. This is beyond the scope of this document.
 
 # Database component
-
+1. Follow the instructions contained in the following link - https://docs.atlas.mongodb.com/getting-started/ - to create your MongoDB environment.
+2. Be sure to get the connection string since this will be needed to be configured below.
 
 # Email component
-Follow the instructions contained in the following instructions https://devcenter.heroku.com/articles/sendgrid to generate a SENDGRID API key.
+Follow the instructions contained in the following link - https://devcenter.heroku.com/articles/sendgrid - to generate a SENDGRID API key.
 
 # API Components
 The following steps need to be followed to install and configure the Node.js/Express API server to run.
