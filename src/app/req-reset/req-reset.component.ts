@@ -19,7 +19,7 @@ export class ReqResetComponent implements OnInit {
 
   config : Config | undefined ;
 
-  success: boolean = false;
+  // success: boolean = false;
   
   constructor(private auth:AuthService,private data: CharityService, private router: Router, private http: HttpClient, private session: SessionService) { }
 
@@ -58,21 +58,22 @@ export class ReqResetComponent implements OnInit {
         eError.innerHTML = "";
       }
 
-      this.success = true;
+      // this.success = true;
 
       this.http.post<any>('https://arcane-escarpment-54741.herokuapp.com/users/forgot', {
             "username": this.formData.email
-          },{observe: 'response'}).subscribe(error => {
+          }
+          ,{observe: 'response'}).subscribe(error => {
             console.error('There was an error!', error); 
             console.log(error.status); 
             if(error.status == 422){
               if(x==0){
                 x = 1;
                 if(eError){
-                  eError.innerHTML = "No Account with that username exists";
+                  eError.innerHTML = "No Account with that email exists";
                 }
 
-                alert("No Account with that username exists");
+                // alert("No Account with that username exists");
               }
             }
             if(error.status == 200){
@@ -84,7 +85,28 @@ export class ReqResetComponent implements OnInit {
              
             }
           }
-        })
+        },HttpErrorResponse=>{    
+          if(HttpErrorResponse.status == 200){
+            if(x==0){
+              x = 1;
+             alert("Request to reset password was succesfully processed.Please check for your Email...");
+
+             this.router.navigate(['/home']);
+           
+          }
+        }
+        if(HttpErrorResponse.status == 422){
+          if(x==0){
+            x = 1;
+            if(eError){
+              eError.innerHTML = "No Account with that email exists";
+            }
+
+            // alert("No Account with that username exists");
+          }
+        }
+  
+      })
     }
   }
   

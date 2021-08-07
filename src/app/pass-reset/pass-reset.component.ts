@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { CharityService } from '../charity.service';
 import { PassReset } from '../PassReset';
@@ -16,9 +16,12 @@ export class PassResetComponent implements OnInit {
   public formData: PassReset = new PassReset();
   public formData2: RegisterExtra;
   public querySub: any;
+  public querySub2: any;
+
+  token: string;
 
   config : Config | undefined ;
-  constructor(private data: CharityService, private router: Router, private http: HttpClient) { }
+  constructor(private data: CharityService, private router: Router, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -30,6 +33,15 @@ export class PassResetComponent implements OnInit {
     this.formData2 = {
       conpassword: ""
     }
+
+    this.querySub2 = this.route.params.subscribe(params =>{
+      // this.data.getCharityByBn(params['businessnumber']).subscribe(myData => {
+      //   this.clickedChrt = myData.charity;
+      //   this.BNcharity = myData.charity.businessnumber;
+      //   // console.log(myData.charity);
+      // });
+      this.token = params['token'];
+    })
 
   }
 
@@ -71,11 +83,11 @@ export class PassResetComponent implements OnInit {
         passwordError.innerHTML = "";
     }
     else{
-      var y =""
-                  this.getConfig(this.formData.email).subscribe(mydata => {
-                    if(mydata){
-                      y = mydata.resetPasswordToken;
-                      this.http.put<any>(`https://arcane-escarpment-54741.herokuapp.com/users/reset/${y}`,{
+      // var y =""
+                  // this.getConfig(this.formData.email).subscribe(mydata => {
+                  //   if(mydata){
+                  //     y = mydata.resetPasswordToken;
+                      this.http.put<any>(`https://arcane-escarpment-54741.herokuapp.com/users/reset/` + this.token,{
                         "password" : this.formData.password
                       },{observe: 'response'}).subscribe(error => {
                         if(error.status == 422){
@@ -110,23 +122,23 @@ export class PassResetComponent implements OnInit {
                   }
                 })
                     }
-                  });
-                  if(y == null){
-                    if(y == "")
-                    alert("Unauthorized")
-                    alert("Unauthorized");
+                  // });
+                  // if(y == null){
+                  //   if(y == "")
+                  //   alert("Unauthorized")
+                  //   alert("Unauthorized");
 
-                    alert(this.config)
-                  }else{
+                  //   alert(this.config)
+                  // }else{
                   
-                  }
+                  // }
     }
-  }
+  // }
 
 
  
-  getConfig(emailid: string | null){
-    return this.http.get<Config>(`https://arcane-escarpment-54741.herokuapp.com/users/get?username=${emailid}`)
-  }
+  // getConfig(emailid: string | null){
+  //   return this.http.get<Config>(`https://arcane-escarpment-54741.herokuapp.com/users/get?username=${emailid}`)
+  // }
 
 }
