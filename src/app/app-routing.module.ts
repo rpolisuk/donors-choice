@@ -8,7 +8,9 @@ import { FaqComponent } from './faq/faq.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PassResetComponent } from './pass-reset/pass-reset.component';
 import { RegisterComponent } from './register/register.component';
+import { ReqResetComponent } from './req-reset/req-reset.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 
 const routes: Routes = [
@@ -22,6 +24,8 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'password-reset', component: PassResetComponent},
+  {path: 'request-password', component: ReqResetComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 

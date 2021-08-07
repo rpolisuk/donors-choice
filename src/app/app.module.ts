@@ -22,6 +22,8 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { PassResetComponent } from './pass-reset/pass-reset.component';
+import { ReqResetComponent } from './req-reset/req-reset.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     ContactComponent,
     AdminComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PassResetComponent,
+    ReqResetComponent
   ],
   imports: [
     BrowserModule,

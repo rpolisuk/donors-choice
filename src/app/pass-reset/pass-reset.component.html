@@ -1,36 +1,35 @@
-<br><br><br>
+<br><br>
 <!-- <img src="/assets/img/contact-banner.jpg" width="100%" style="background-size: cover; background-position: center; background-repeat: no-repeat;">
 <p style="float: left; color: white; margin: -50px 0px 0px 110px; z-index: 1000; position: relative;"><a routerLink="/home" style="color: orange;">Home</a> &#60; Login</p> -->
 
   <section style="padding-top: 50px;" class="py-5 shadow-sm index-forward">
     <div class="container py-5" style="max-width: 500px !important;">
       <header>
-        <h1>Login</h1>
+        <h1>Reset Password</h1>
       </header><br>
       <div class="row">
         <div class="col-lg-12 mb-5 mb-lg-0">
           <div class="pt-1 bg-primary">
             <div class="p-4 p-lg-5 bg-white shadow-sm">
-              <span *ngIf="success" class="success">Loading please wait...</span>
-
               <form #f="ngForm" (ngSubmit)="formSubmit(f)"><!-- ngNativeValidate -->
                 <div class="row">
                   <div class="form-group col-lg-12">
-                    <input class="form-control" type="email" id="email" name="email" #email="ngModel" placeholder="Email address" [(ngModel)]="formData.email" required autofocus>
-                    <span *ngIf="f.submitted && email.errors?.required" class="help-block">Email is required</span>
+                    <input class="form-control" type="email" id="email" name="email" #email="ngModel" placeholder="Email address" [(ngModel)]="formData.email" required>
+                    <span *ngIf="f.submitted && email.errors?.required" style="color: red;" class="help-block">Email is required</span>
                     <p id="eError" class="help-block"></p>
                   </div>
                   <div class="form-group col-lg-12">
                     <input class="form-control" type="password" id="password" name="password" #password="ngModel" placeholder="Password" [(ngModel)]="formData.password" required>
-                    <a routerLink="/request-password">Forgot Password?</a><br>
-                    <span *ngIf="f.submitted && password.errors?.required" class="help-block">Password is required</span>
-                    <p id="cancelError" class="help-block"></p>
+                    <span *ngIf="f.submitted && password.errors?.required" style="color: red;" class="help-block">Password is required</span>
+                    <p id="passwordError" class="help-block"></p>
                   </div>
                   <div class="form-group col-lg-12">
-                    <button class="btn btn-outline-primary" style="background: green; color: white;" type="submit">Login</button>
+                    <input class="form-control" type="password" id="conpassword" name="conpassword" #conpassword="ngModel" placeholder="Confirm Password" [(ngModel)]="formData2.conpassword" required>
+                    <span *ngIf="f.submitted && conpassword.errors?.required" style="color: red;" class="help-block">Confirm Password is required</span>
+                    <p id="conpassError" class="help-block"></p>
                   </div>
                   <div class="form-group col-lg-12">
-                    <p>Don't have an account? <a routerLink="/register">Register</a></p>
+                    <button class="btn btn-outline-primary" style="background: green; color: white;" type="submit">Reset</button><br><br>
                   </div>
                 </div>
               </form>
