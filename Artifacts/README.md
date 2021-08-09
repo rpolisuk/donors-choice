@@ -14,6 +14,10 @@ All project artifacts to be available through GitHub and the team channel in MS 
     * There are no executable programs
 10. A database with meaningful test data
     * The MongoDB Atlas database is already loaded with meaningful test data and can be accessed via the web application.
-11. A list of deviations from what was proposed in PRJ566 -> Admin Dashboard
-12. A list of known bugs
-13. Instructions on how to run the system on Heroku including usernames and required passwords. -> Admin account
+11. A list of deviations from what was proposed in PRJ566
+    * The original SRS did not have an Admin dashboard showing all the donations. This was added to this final version.
+13. A list of known bugs
+    * There are no known bugs
+14. Instructions on how to run the system on Heroku including usernames and required passwords.
+    * Please use the email account - polisuk@gmail.com and the password is Password1!
+    * This account has admin access as well.
