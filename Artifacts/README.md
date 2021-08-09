@@ -1,7 +1,7 @@
 All project artifacts to be available through GitHub and the team channel in MS Teams:
 1.	Project Source Code
-    * The source code for the back-end API is located at this linkhttps://github.com/prj666-s21/donors-choice/tree/DonorsChoiceAPI
-    * The source code for the front-end web pages is located here - https://github.com/prj666-s21/donors-choice/tree/master	
+    * The source code for the back-end API is located at this link - https://github.com/prj666-s21/donors-choice/tree/DonorsChoiceAPI
+    * The source code for the front-end web pages is at this link - https://github.com/prj666-s21/donors-choice/tree/master	
 3.	Project Technical Document
     * The technical document is located at this link - https://github.com/prj666-s21/donors-choice/tree/main/Artifacts/ProjectTechnicalDocuments
 5.	User Manual
