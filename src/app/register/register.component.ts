@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
   public formData2: RegisterExtra;
   public querySub: any;
 
+  success: boolean = false;
+
   constructor(private data: CharityService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -72,6 +74,8 @@ export class RegisterComponent implements OnInit {
         passwordError.innerHTML = "";
     }
     else{
+
+      this.success = true;
       // this.querySub = this.data.registerUser(this.formData).subscribe(() => this.router.navigate(['/donate']));
 
       this.http.post<any>('https://arcane-escarpment-54741.herokuapp.com/users/signup', {
@@ -84,6 +88,8 @@ export class RegisterComponent implements OnInit {
                 if(x==0){
                   x = 1;
                 alert("Incorrect Username and/or Password");}
+
+                this.success = false;
               }
               if(error.status == 200){
                 if(x==0){
@@ -92,6 +98,7 @@ export class RegisterComponent implements OnInit {
 
                   this.router.navigate(['/login']);
               }
+              this.success = false;
               }
     },HttpErrorResponse=>{    
         if(HttpErrorResponse.status == 200){
@@ -102,10 +109,14 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login'])
         }, 10000);
       }
+
+      this.success = false;
       }
       if(HttpErrorResponse.status == 422){
         if(x==0){x =1 
         alert("Email is already taken!");}
+
+        this.success = false;
       }
 
     })

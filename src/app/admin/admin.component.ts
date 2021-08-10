@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
@@ -30,6 +30,9 @@ export class AdminComponent implements OnInit {
   donationStatusConfirmed: Status;
   donationStatusFailed: Status;
 
+  // @ViewChild('amount') myAmount: ElementRef;
+  // flag = true;
+
   constructor(private data: CharityService, private router: Router) { }
 
   ngOnInit(): void {
@@ -37,6 +40,8 @@ export class AdminComponent implements OnInit {
     // this.admin = {
     //   email: ""
     // }
+    const donationCols = document.getElementById("donationCols");
+    const reconciliation = document.getElementById("reconciliation");
 
     this.cancel = {
       cancelID: ""
@@ -83,9 +88,19 @@ export class AdminComponent implements OnInit {
       }
     });
 
+    if(donationCols){
+      donationCols.style.display = "block";
+    }
+
+    if(reconciliation){
+      reconciliation.style.display = "none";
+    }
+
   }else{
     this.router.navigate(['/home']);
   }
+
+  // console.log(this.myAmount.nativeElement.innerHTML);
 
   }
 
@@ -182,13 +197,34 @@ export class AdminComponent implements OnInit {
   // }
 
 
+
+  confirmDonationReconciliation(pickupID, f: NgForm, donorID, businessNum){
+    const donationCols = document.getElementById("donationCols");
+    const reconciliation = document.getElementById("reconciliation");
+
+    if(donationCols){
+      donationCols.style.display = "none";
+    }
+    
+    if(reconciliation){
+      reconciliation.style.display = "block";
+    }
+    
+    this.recon.pickupid = pickupID;
+    this.recon.donorid = donorID;
+    this.recon.adminid = "polisuk@gmail.com";
+    this.recon.businessnumber = businessNum;
+
+    alert("Now confirm the Donation Reconciliation");
+  }
+
   confirmDonation(pickupID, f: NgForm, donorID, businessNum){
     if(f.valid){
-
       this.recon.pickupid = pickupID;
       this.recon.donorid = donorID;
       this.recon.adminid = "polisuk@gmail.com";
       this.recon.businessnumber = businessNum;
+      // this.recon.amount = amt.innerHTML
 
       this.querySub2 = this.data.createDonationReconciliation(this.recon).subscribe();
 
@@ -199,10 +235,16 @@ export class AdminComponent implements OnInit {
           this.ngOnInit();
         }
       });
+
+      this.ngOnInit();
     }else{
       console.log("Form validation errors");
       return;
     }
+  }
+
+  seeAllDonations(){
+    this.ngOnInit();
   }
 
   failedDonation(pickupID, donorID){

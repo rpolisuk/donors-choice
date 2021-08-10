@@ -47,9 +47,7 @@ export class ContactComponent implements OnInit {
     else{
       // this.formData.username = this.flname.firstname + " " + this.flname.lastname;
 
-      this.data.contactRequest(this.formData).subscribe(() => setTimeout(() => {
-        this.router.navigate(['/donate']);
-      }, 5000));
+      this.data.contactRequest(this.formData).subscribe();
 
       f.resetForm();
       

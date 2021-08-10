@@ -18,6 +18,11 @@
     width: 33.3%;
 }
 
+::placeholder {
+  color: white;
+  opacity: 0.8; /* Firefox */
+}
+
 .box{
     padding: 30px 50px 50px 50px;
     border: 3px solid brown;

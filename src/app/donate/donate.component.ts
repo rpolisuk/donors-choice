@@ -256,9 +256,7 @@ export class DonateComponent implements OnInit {
     if(!f.invalid){
       this.querySub2 = this.data.cancelDonationById(this.cancel.cancelID, this.donationStatus).subscribe(myData => {
         if(myData){
-          setTimeout(() => {
-            this.router.navigate(['/home']);
-          }, 8000);
+          
     
           const form2Display = document.getElementById("form2");
           const form3Display = document.getElementById("form3");

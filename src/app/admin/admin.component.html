@@ -28,8 +28,8 @@
         </div>
       </div>
     </div> -->
-
-    <div class="row2">
+    
+    <div class="row2" id="donationCols">
       <div *ngFor="let c of charitiesArray" class="column2">
         <h3 style="background-color: white;">Charity Info</h3>
         <div class="charityDetailBox">
@@ -51,15 +51,53 @@
               <!-- <div *ngFor="let cn of cNamesArray"> -->
                 <input type="text" class="form-control" value="{{c.phone}}" id="businessnumber" name="businessnumber" disabled>
               <!-- </div> -->
-              <b>Amount: </b><br>
-              <input type="number" class="form-control" placeholder="Amount" id="amount" #amount="ngModel" [(ngModel)]="recon.amount" name="amount" min="0" required>
-              <span *ngIf="f.submitted && amount.errors?.required" class="help-block">Amount is required</span><br>
+              <!-- <b>Amount: </b><br> -->
+              <!-- <input type="number" class="form-control" placeholder="Amount" id="amount" #amount="ngModel" [(ngModel)]="recon.amount" name="amount" min="0" required> -->
+              <!-- <span *ngIf="f.submitted && amount.errors?.required" class="help-block">Amount is required</span><br> -->
+              <!-- <input type="number" class="form-control" placeholder="Amount" id="amount" name="amount" min="0" required> -->
               <b>Created Date: </b>{{c.createdAt | date:'medium'}}<br><br>
-              <button class="btn" type="submit" (click)=confirmDonation(c._id,f,c.username,c.donations[0].businessnumber)>Confirm</button>
+              <button class="btn" type="submit" (click)=confirmDonationReconciliation(c._id,f,c.username,c.donations[0].businessnumber)>Confirm</button>
               <button class="btn" style="float: right;" (click)=failedDonation(c._id,c.username)>Failed</button>
             </form>
           <!-- </p> -->
         </div>
       </div>
+    </div>
+
+    <div class="row2" id="reconciliation">
+      <div class="column2" style="width: 100%; display: block;">
+        <h3 style="background-color: white;">Charity Info</h3>
+        <div class="charityDetailBox">
+          <!-- <p> -->
+            <!-- <img src="/assets/img/charity.jpg" id="pic" width="300px" height="200px"/><br><br> -->
+            <form #f="ngForm">
+              <!-- <b>Pickup ID: </b>{{c.pickupid}}<br> -->
+              <!-- <b>Donor ID: </b>{{c.donorid}}<br> -->
+              <!-- <b>Admin ID: </b>{{c.adminid}}<br> -->
+              <!-- <b>Business Number: </b>{{c.businessnumber}}<br> -->
+              <!-- <b>Amount: </b>{{c.amount}}<br> -->
+              <b>Pickup ID: </b><br>
+              <input type="text" class="form-control" value="{{recon.pickupid}}" id="_id" name="_id" disabled>
+              <b>Donor Email: </b><br>
+              <input type="text" class="form-control" value="{{recon.donorid}}" id="username" name="username" disabled>
+              <!-- <b>Admin ID: </b>{{c.adminid}}<br> -->
+              <!-- <input type="text" class="form-control" value="{{c.adminid}}" id="adminid" name="adminid" disabled> -->
+              <b>Charity Number: </b><br>
+              <!-- <div *ngFor="let cn of cNamesArray"> -->
+                <input type="text" class="form-control" value="{{recon.businessnumber}}" id="businessnumber" name="businessnumber" disabled>
+              <!-- </div> -->
+              <b>Amount: </b><br>
+              <input type="number" class="form-control" placeholder="Amount" id="amount" #amount="ngModel" [(ngModel)]="recon.amount" name="amount" min="0" required>
+              <span *ngIf="f.submitted && amount.errors?.required" class="help-block">Amount is required</span><br><br>
+              <!-- <input type="number" class="form-control" placeholder="Amount" id="amount" name="amount" min="0" required> -->
+              <!-- <b>Created Date: </b>{{c.createdAt | date:'medium'}}<br><br> -->
+              <button class="btn" type="submit" style="width: 200px;" (click)=confirmDonation(recon.pickupid,f,recon.donorid,recon.businessnumber)>Confirm</button>
+              <!-- <button class="btn" style="float: right;" (click)=failedDonation(c._id,c.username)>Failed</button> -->
+            </form>
+          <!-- </p> -->
+        </div>
+      </div><br><br><br>
+
+      <button style="margin: auto; color: black; background-color: #d29d1e; display: block; padding: 10px 20px;" (click)="seeAllDonations()">See All Donations</button>
     </div>
 </section>

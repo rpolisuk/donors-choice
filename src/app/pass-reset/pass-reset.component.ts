@@ -93,7 +93,10 @@ export class PassResetComponent implements OnInit {
                         if(error.status == 422){
                           if(x==0){
                             x = 1;
-                          alert("Invalid Password token or token expired");}
+                            alert("Invalid Password Token or Token Expired");
+
+                            this.router.navigate(['/home']);
+                          }
                         }
                         if(error.status == 200){
                           if(x==0){
@@ -109,7 +112,9 @@ export class PassResetComponent implements OnInit {
                   if(HttpErrorResponse.status == 422){
                     if(x==0){
                       x = 1;
-                    alert("Invalid Password token or token expired");
+                      alert("Invalid Password Token or Token Expired");
+
+                      this.router.navigate(['/home']);
                     }
                   }
                   if(HttpErrorResponse.status == 200){
