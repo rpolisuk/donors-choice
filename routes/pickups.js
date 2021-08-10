@@ -122,8 +122,6 @@ router.route('/update/:pickupId')
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         if (req.body.status === 'cancelled') {
-          // const user = await User.findOne({ businessnumber: req.query.businessnumber }).exec();
-          //
           // Send email
           sgMail.setApiKey(config.SENDGRID_API_KEY);
           console.log(pickup);
@@ -142,8 +140,29 @@ router.route('/update/:pickupId')
             .catch((error) => {
               console.error(error);
             });
-        //
         }
+        //
+        if (req.body.status === 'failed') {
+          // Send email
+          sgMail.setApiKey(config.SENDGRID_API_KEY);
+          console.log(pickup);
+          const msg = {
+            to: `${pickup.username}`,
+            from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
+            subject: 'Pickup cancellation',
+            html: `<p>Your pickup ${req.params.pickupId} has been not been able to picked up by our team.</p>`
+          };
+          sgMail
+            .send(msg)
+            .then((response) => {
+              console.log(response[0].statusCode);
+              console.log(response[0].headers);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+        //
         res.json({
           success: true,
           message: 'Updated successfully.'
