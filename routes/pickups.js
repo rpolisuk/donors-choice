@@ -122,12 +122,13 @@ router.route('/update/:pickupId')
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         if (req.body.status === 'cancelled') {
-          const user = await User.findOne({ businessnumber: req.query.businessnumber }).exec();
+          // const user = await User.findOne({ businessnumber: req.query.businessnumber }).exec();
           //
           // Send email
           sgMail.setApiKey(config.SENDGRID_API_KEY);
+          console.log(pickup);
           const msg = {
-            to: `${user.username}`,
+            to: `${pickup.username}`,
             from: 'rpolisuk@myseneca.ca', // Use the email address or domain you verified above
             subject: 'Pickup cancellation',
             html: `<p>Your pickup ${req.params.pickupId} has been cancelled.</p>`
