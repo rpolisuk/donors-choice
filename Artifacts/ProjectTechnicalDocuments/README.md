@@ -1,8 +1,8 @@
 # Technical Architecture
 ## Overview
-The Donor's Choice web site is a three tier web application with the web tier hosted on a web server running on a Heroku site, the application tier hosted on a Node.js/Express site running on a Heroku site, and the database running on the MongoDB Atlas cloud environment.
+The Donor's Choice web site is a mulitier web application (https://en.wikipedia.org/wiki/Multitier_architecture) with the web tier hosted on a web server running on a Heroku site (https://www.heroku.com), the application tier hosted on a Node.js (https://nodejs.org/en/) /Express (https://expressjs.com/ site running on a Heroku site, and the database running on the MongoDB Atlas cloud (https://www.mongodb.com/cloud/atlas) environment.
 ### Web Stack
-The single-page application is written using web application framework Angular with code in Typescript.
+The single-page application is written using web application framework Angular (https://angular.io/) with code in Typescript (https://www.typescriptlang.org/).
 ### Application Stack
 The application stack is written using the Javascript runtime environment, Node.js, with the Express.js web application framework. It responds to REST calls initated by the web browser. All code is written in Javascript. The API calls are documented using Swagger which can also be used for testing the calls. It is located here: https://arcane-escarpment-54741.herokuapp.com/api-docs/#/
 ### Database Stack
